@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import AppFont from "@/constants/localFonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
     title: "برنامه هواشناسی",
     description: "برنامه ای برای دیدن آب و هوای هرشهر",
+    manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+    userScalable: false,
+    maximumScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<React.PropsWithChildren>) {
