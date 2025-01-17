@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .text-time {
+    @apply text-[1.2rem] text-slate-600;
+  }
+}
+
 /* :root {
     &,
     &.light-mode {
