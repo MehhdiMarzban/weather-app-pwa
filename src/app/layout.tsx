@@ -3,6 +3,7 @@ import AppFont from "@/constants/localFonts";
 import "./globals.css";
 import { Header } from "@/components";
 import AppProvider from "@/context/AppContext";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 
 export const metadata: Metadata = {
     title: "برنامه هواشناسی",
@@ -21,10 +22,12 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
             <body
                 className={`${AppFont.variable} font-sans min-h-screen bg-main-image bg-cover bg-center bg-fixed bg-no-repeat`}>
                 <AppProvider>
-                    <div className="bg-black bg-opacity-15 min-h-screen">
-                        <Header />
-                        <div className="container xl:max-w-screen-xl">{children}</div>
-                    </div>
+                    <ReactQueryProvider>
+                        <div className="bg-black bg-opacity-15 min-h-screen">
+                            <Header />
+                            <div className="container xl:max-w-screen-xl">{children}</div>
+                        </div>
+                    </ReactQueryProvider>
                 </AppProvider>
             </body>
         </html>
