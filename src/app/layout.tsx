@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
                     <ReactQueryProvider>
                         <div className="bg-black bg-opacity-15 min-h-screen">
                             <Header />
-                            <div className="container xl:max-w-screen-xl">{children}</div>
+                            <div className="container xl:max-w-screen-xl py-8">{children}</div>
                         </div>
                     </ReactQueryProvider>
                 </AppProvider>

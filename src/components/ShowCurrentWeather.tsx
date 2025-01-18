@@ -1,20 +1,33 @@
 "use client";
 
-import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import MiniLoading from "./MiniLoading";
-import Image from "next/image";
 import { format } from "date-fns-jalali";
+import Image from "next/image";
+import { useGetCurrentWeather } from "@/hooks/weatherHooks";
+import {MiniLoading, UpdateWeatherButton, WeatherView} from "@/components";
 const ShowCurrentWeather: React.FC = () => {
-    const { currentWeatherData, isLoadingCurrentWeather } = useGetCurrentWeather("دورود");
+    const {
+        currentWeatherData,
+        isLoadingCurrentWeather,
+        isUpdatingCurrentWeather,
+        updateCurrentWeather,
+    } = useGetCurrentWeather("دورود");
     if (isLoadingCurrentWeather) {
         return <MiniLoading />;
     }
     return (
         <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
-            <div className="card bg-base-300 shadow-lg w-full">
-                <div className="card-body grid md:grid-cols-12 grid-cols-1">
-                    <div className="flex flex-col items-start justify-center col-span-1 md:col-span-4">
-                        <div className="stat-value text-slate-600">{currentWeatherData?.name}</div>
+            <WeatherView>
+                <WeatherView.Body>
+                    <WeatherView.Column defaultCols={1} mdCols={4}>
+                        <div className="flex flex-row w-full justify-between items-center">
+                            <div className="stat-value text-slate-600">
+                                {currentWeatherData?.name}
+                            </div>
+                            <UpdateWeatherButton
+                                isUpdatingWeather={isUpdatingCurrentWeather}
+                                updateFN={updateCurrentWeather}
+                            />
+                        </div>
                         <div className="flex flex-row w-full items-center justify-between">
                             <div className="stat-title">
                                 {currentWeatherData?.weather[0]?.description}
@@ -47,9 +60,11 @@ const ShowCurrentWeather: React.FC = () => {
                                 {format(new Date(currentWeatherData?.sys?.sunset), "HH:mm")}{" "}
                             </span>
                         </div>
-                    </div>
-                    <div className="divider divider-vertical md:divider-horizontal col-span-1 md:col-span-1"></div>
-                    <div className="flex flex-col items-start justify-start space-y-5 col-span-1 md:col-span-3">
+                    </WeatherView.Column>
+
+                    <WeatherView.Divider />
+
+                    <WeatherView.Column defaultCols={1} mdCols={3} spaceBetween={5}>
                         <div className="flex flex-row w-full items-center justify-between">
                             <div className="stat-title">باد</div>
                             <svg
@@ -78,17 +93,23 @@ const ShowCurrentWeather: React.FC = () => {
                         </div>
                         <div className="stat-value text-[1.75rem] text-primary flex flex-row w-full items-center justify-between">
                             <div className="stat-desc">ارتفاع از دریا</div>
-                            <span>{currentWeatherData?.main?.sea_level}<span className="text-sm">M</span></span>
+                            <span>
+                                {currentWeatherData?.main?.sea_level}
+                                <span className="text-sm">M</span>
+                            </span>
                         </div>
                         <div className="stat-value text-[1.75rem] text-primary flex flex-row w-full items-center justify-between">
                             <div className="stat-desc">عمق دید</div>
-                            <span>{currentWeatherData?.visibility}<span className="text-sm">M</span></span>
+                            <span>
+                                {currentWeatherData?.visibility}
+                                <span className="text-sm">M</span>
+                            </span>
                         </div>
-                    </div>
+                    </WeatherView.Column>
 
-                    <div className="divider divider-vertical md:divider-horizontal col-span-1 md:col-span-1"></div>
+                    <WeatherView.Divider />
 
-                    <div className="flex flex-col items-start justify-start space-y-5 col-span-1 md:col-span-3">
+                    <WeatherView.Column defaultCols={1} mdCols={3} spaceBetween={5}>
                         <div className="flex flex-row w-full items-center justify-between">
                             <div className="stat-title">آب و هوا</div>
                             <svg
@@ -133,9 +154,9 @@ const ShowCurrentWeather: React.FC = () => {
                                 <span className="text-sm align-middle">سانتیگراد</span>
                             </span>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </WeatherView.Column>
+                </WeatherView.Body>
+            </WeatherView>
         </section>
     );
 };
