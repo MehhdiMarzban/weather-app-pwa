@@ -3,18 +3,24 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import {MiniLoading, UpdateWeatherButton} from "@/components";
-import WeatherView from "@/components/WeatherView";
-const ShowCurrentWeather: React.FC = () => {
+import { MiniLoading, UpdateWeatherButton, WeatherView } from "@/components";
+import { City } from "@/context/AppContext";
+
+interface ShowCurrentWeatherProps {
+    city: City;
+}
+const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
     const {
         currentWeatherData,
         isLoadingCurrentWeather,
         isUpdatingCurrentWeather,
         updateCurrentWeather,
-    } = useGetCurrentWeather("دورود");
+    } = useGetCurrentWeather(city.name);
+
     if (isLoadingCurrentWeather) {
         return <MiniLoading />;
     }
+
     return (
         <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
             <WeatherView>
