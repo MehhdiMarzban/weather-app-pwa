@@ -3,7 +3,8 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import {MiniLoading, UpdateWeatherButton, WeatherView} from "@/components";
+import {MiniLoading, UpdateWeatherButton} from "@/components";
+import WeatherView from "@/components/WeatherView";
 const ShowCurrentWeather: React.FC = () => {
     const {
         currentWeatherData,
@@ -18,7 +19,7 @@ const ShowCurrentWeather: React.FC = () => {
         <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
             <WeatherView>
                 <WeatherView.Body>
-                    <WeatherView.Column defaultCols={1} mdCols={4}>
+                    <WeatherView.Column className="md:col-span-4 space-y-0">
                         <div className="flex flex-row w-full justify-between items-center">
                             <div className="stat-value text-slate-600">
                                 {currentWeatherData?.name}
@@ -64,7 +65,7 @@ const ShowCurrentWeather: React.FC = () => {
 
                     <WeatherView.Divider />
 
-                    <WeatherView.Column defaultCols={1} mdCols={3} spaceBetween={5}>
+                    <WeatherView.Column className="md:col-span-3">
                         <div className="flex flex-row w-full items-center justify-between">
                             <div className="stat-title">باد</div>
                             <svg
@@ -109,7 +110,7 @@ const ShowCurrentWeather: React.FC = () => {
 
                     <WeatherView.Divider />
 
-                    <WeatherView.Column defaultCols={1} mdCols={3} spaceBetween={5}>
+                    <WeatherView.Column className="md:col-span-3">
                         <div className="flex flex-row w-full items-center justify-between">
                             <div className="stat-title">آب و هوا</div>
                             <svg
