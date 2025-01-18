@@ -1,6 +1,6 @@
 import { City } from "@/context/AppContext";
 import { getCurrentWeather } from "@/services/weather.services";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
