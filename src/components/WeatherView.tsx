@@ -8,7 +8,7 @@ interface WeatherViewProps extends React.FC<React.ComponentProps<"div">> {
 
 const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
     return (
-        <div className={twMerge("card glass bg-slate-200 bg-opacity-20 shadow-lg w-full", className)} {...rest}>
+        <div className={twMerge("card glass bg-slate-200 bg-opacity-30 shadow-lg w-full", className)} {...rest}>
             {children}
         </div>
     );
