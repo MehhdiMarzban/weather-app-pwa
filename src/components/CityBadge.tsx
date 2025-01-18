@@ -6,7 +6,7 @@ interface CityBadgeProps {
 }
 const CityBadge: React.FC<CityBadgeProps> = ({ city, handleDeleteCity }) => {
     return (
-        <div className="badge badge-primary gap-2">
+        <div className="badge badge-primary gap-2 py-3 px-2 select-none">
             <button  onClick={() => handleDeleteCity(city.id)}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
