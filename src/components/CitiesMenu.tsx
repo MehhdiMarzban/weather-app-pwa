@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useAppContext } from "@/context/AppContext";
 import MiniLoading from "./MiniLoading";
+import defaultCity from "@/data/default.json";
 
 const CitiesMenu: React.FC = () => {
     const { cities, currentCity, isLoading, handleSetCurrentCity } = useAppContext();
@@ -13,7 +14,7 @@ const CitiesMenu: React.FC = () => {
             if (cities.length > 0) {
                 handleSetCurrentCity(cities[0]);
             } else {
-                handleSetCurrentCity({ id: "329", name: "تهران" });
+                handleSetCurrentCity(defaultCity);
             }
         }
     }, [isLoading]);
