@@ -3,18 +3,49 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import {MiniLoading, UpdateWeatherButton} from "@/components";
-import WeatherView from "@/components/WeatherView";
-const ShowCurrentWeather: React.FC = () => {
+import { MiniLoading, UpdateWeatherButton, WeatherView } from "@/components";
+import { City } from "@/context/AppContext";
+
+interface ShowCurrentWeatherProps {
+    city: City;
+}
+/**
+ * ShowCurrentWeather component displays the current weather information for a given city.
+ *
+ * Props:
+ * - city: An object representing the city for which the weather needs to be displayed.
+ *
+ * Hooks:
+ * - Utilizes the useGetCurrentWeather hook to fetch current weather data for the given city.
+ *
+ * Returns:
+ * - If the weather data is loading, it displays a loading spinner (MiniLoading component).
+ * - Otherwise, it displays a detailed view of the current weather including:
+ *   - City name and description of the weather.
+ *   - An update button to refresh the weather data.
+ *   - Weather icon, date, time, sunrise, and sunset times.
+ *   - Wind speed and direction, sea level, visibility, cloudiness, humidity, temperature, and feels-like temperature.
+ *
+ * Components:
+ * - Utilizes WeatherView, UpdateWeatherButton, MiniLoading, and Image components for UI rendering.
+ *
+ * Note:
+ * - The weather data is fetched from an external API and is displayed in a user-friendly format.
+ * - The component is styled using Tailwind CSS classes.
+ */
+
+const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
     const {
         currentWeatherData,
         isLoadingCurrentWeather,
         isUpdatingCurrentWeather,
         updateCurrentWeather,
-    } = useGetCurrentWeather("دورود");
+    } = useGetCurrentWeather(city.name);
+
     if (isLoadingCurrentWeather) {
         return <MiniLoading />;
     }
+
     return (
         <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
             <WeatherView>
@@ -144,15 +175,19 @@ const ShowCurrentWeather: React.FC = () => {
                         <div className="stat-value text-primary flex flex-row w-full items-center justify-between">
                             <div className="stat-desc">دما</div>
                             <span>
-                                {currentWeatherData?.main.temp.toFixed()}&deg;{" "}
-                                <span className="text-sm align-middle">سانتیگراد</span>
+                                <span dir="ltr">
+                                    {Math.floor(currentWeatherData?.main.temp)}&deg;
+                                </span>
+                                <span className="text-sm align-middle mr-1">سانتیگراد</span>
                             </span>
                         </div>
                         <div className="stat-value text-primary flex flex-row w-full items-center justify-between">
                             <div className="stat-desc">دمای حسی</div>
                             <span>
-                                {currentWeatherData?.main.feels_like.toFixed()}&deg;{" "}
-                                <span className="text-sm align-middle">سانتیگراد</span>
+                                <span dir="ltr">
+                                    {Math.floor(currentWeatherData?.main.feels_like)}&deg;
+                                </span>
+                                <span className="text-sm align-middle mr-1">سانتیگراد</span>
                             </span>
                         </div>
                     </WeatherView.Column>
