@@ -1,7 +1,8 @@
 "use client";
-import { safeLocalStorage } from "@/utils/safeLocalStorage";
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, use, useEffect, useState } from "react";
+import { safeLocalStorage } from "@/utils/safeLocalStorage";
+import defaultCity from "@/data/default.json";
 
 export interface City {
     id: string;
@@ -31,7 +32,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         setCities(citiesLocalStorage.get());
         const currentCityLocalStorage = safeLocalStorage<AppContext["currentCity"]>(
             "currnetCity",
-            null
+            defaultCity
         );
         setCurrentCity(currentCityLocalStorage.get());
         setIsLoading(false);
@@ -58,7 +59,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     };
 
     const handleSetCurrentCity = (city: City) => {
-        const appLocalStorage = safeLocalStorage<AppContext["currentCity"]>("currnetCity", null);
+        const appLocalStorage = safeLocalStorage<AppContext["currentCity"]>("currnetCity", defaultCity);
         appLocalStorage.set(city);
         setCurrentCity(city);
     };
