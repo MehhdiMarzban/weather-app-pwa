@@ -70,13 +70,14 @@ const CitiesMenu: React.FC = () => {
                 </div>
                 <ul
                     tabIndex={0}
-                    className="menu menu-sm dropdown-content rounded-box w-32 bg-base-300 left-2 text-slate-600 mt-3 p-2 shadow z-50">
+                    className="menu menu-sm dropdown-content rounded-box w-40 bg-base-300 left-2 text-slate-600 mt-3 p-2 shadow z-50 text-base">
                     <li>
                         <summary>فعلی : {currentCity?.name}</summary>
                         <ul className="p-2">
                             {cityList.map((city) => (
                                 <li key={city.id}>
                                     <button
+                                        className="text-base"
                                         onClick={() => {
                                             handleSetCurrentCity(city);
                                         }}>
@@ -85,7 +86,7 @@ const CitiesMenu: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                        <Link className="text-xs" href="/add-city">
+                        <Link className="text-base" href="/add-city">
                             افزودن شهر
                         </Link>
                     </li>
