@@ -10,6 +10,7 @@ export const useGetCurrentWeather = (city: City["name"]) => {
         isLoading: isLoadingCurrentWeather,
         isFetching: isUpdatingCurrentWeather,
         isFetched,
+        isSuccess,
         isRefetchError,
         refetch: updateCurrentWeather,
     } = useQuery({
@@ -18,8 +19,8 @@ export const useGetCurrentWeather = (city: City["name"]) => {
     });
 
     useEffect(() => {
-        if (isFetched) toast.success("با موفقیت بروزرسانی شد !");
-    }, [isFetched]);
+        if (!isUpdatingCurrentWeather && isSuccess) toast.success("با موفقیت بروزرسانی شد !");
+    }, [isSuccess, isUpdatingCurrentWeather]);
     useEffect(() => {
         if (isRefetchError) toast.error("امکان بروزرسانی آب و هوا وجود ندارد !");
     }, [isRefetchError]);
