@@ -1,5 +1,6 @@
 "use client";
 import { safeLocalStorage } from "@/utils/safeLocalStorage";
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, use, useEffect, useState } from "react";
 
 export interface City {
@@ -9,21 +10,30 @@ export interface City {
 
 export interface AppContext {
     cities: City[];
+    currentCity: City | null;
     isLoading: boolean;
     handleAddCity: (city: City) => void;
     handleDeleteCity: (id: City["id"]) => void;
+    handleSetCurrentCity: (city: City) => void;
 }
 
 export const AppContext = createContext<Partial<AppContext>>({});
 
 const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [cities, setCities] = useState<City[]>([]);
+    const [currentCity, setCurrentCity] = useState<AppContext["currentCity"]>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const queryClient = useQueryClient();
 
     const handleFirstLoad = () => {
         setIsLoading(true);
-        const appLocalStorage = safeLocalStorage<City[]>("cities", []);
-        setCities(appLocalStorage.get());
+        const citiesLocalStorage = safeLocalStorage<City[]>("cities", []);
+        setCities(citiesLocalStorage.get());
+        const currentCityLocalStorage = safeLocalStorage<AppContext["currentCity"]>(
+            "currnetCity",
+            null
+        );
+        setCurrentCity(currentCityLocalStorage.get());
         setIsLoading(false);
     };
 
@@ -47,12 +57,32 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         appLocalStorage.set(newCities);
     };
 
+    const handleSetCurrentCity = (city: City) => {
+        const appLocalStorage = safeLocalStorage<AppContext["currentCity"]>("currnetCity", null);
+        appLocalStorage.set(city);
+        setCurrentCity(city);
+    };
+
     useEffect(() => {
         handleFirstLoad();
     }, []);
 
+    useEffect(() => {
+        queryClient.invalidateQueries({
+            queryKey: ["current-weather"],
+        });
+    }, [currentCity]);
+
     return (
-        <AppContext value={{ cities, isLoading, handleDeleteCity, handleAddCity }}>
+        <AppContext
+            value={{
+                cities,
+                isLoading,
+                handleDeleteCity,
+                handleAddCity,
+                currentCity,
+                handleSetCurrentCity,
+            }}>
             {children}
         </AppContext>
     );
