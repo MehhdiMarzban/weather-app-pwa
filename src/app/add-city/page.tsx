@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import iranCities from "@/data/city.json";
 import { MiniLoading, SelectedCities } from "@/components";
 import { useAppContext } from "@/context/AppContext";
+import Link from "next/link";
 
 /**
  * SelectCity component allows users to input a city name and select from a list of suggested cities.
@@ -28,7 +30,9 @@ export default function SelectCity() {
     const [cityInputState, setCityInputState] = useState<string>("");
     const [showCities, setShowCities] = useState<Array<any>>([]);
     const [isPendingShowCities, startTransitionShowCities] = useTransition();
-    const { handleAddCity } = useAppContext();
+    const { handleAddCity, handleSetCurrentCity } = useAppContext();
+    const router = useRouter();
+
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCityInputState(e.target.value.trim());
         if (e.target.value === "") {
@@ -68,7 +72,7 @@ export default function SelectCity() {
                             />
                         </svg>
                     </label>
-                    <button className="btn btn-primary">جست وجو</button>
+                    <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">بازگشت</Link>
                     {/* show selected user cities and can add or removed them */}
                     <SelectedCities />
                 </div>
@@ -77,7 +81,7 @@ export default function SelectCity() {
                 (isPendingShowCities ? (
                     <MiniLoading />
                 ) : (
-                    <ul className="menu bg-base-300 glass rounded-box max-h-44 overflow-y-scroll overflow-x-hidden w-full sm:w-2/5">
+                    <ul className="menu bg-base-300 glass rounded-box max-h-44 overflow-y-scroll overflow-x-hidden w-full sm:w-3/5 xl:w-2/5">
                         <li>
                             <h2 className="menu-title">شهر مورد نظر خود را انتخاب کنید :</h2>
                             <ul>
@@ -88,6 +92,8 @@ export default function SelectCity() {
                                                 setCityInputState("");
                                                 setShowCities([]);
                                                 handleAddCity({ id: city.id, name: city.name });
+                                                handleSetCurrentCity({ id: city.id, name: city.name });
+                                                router.push("/");
                                             }}>
                                             {city.name}
                                         </button>
