@@ -3,11 +3,9 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useAppContext } from "@/context/AppContext";
 import MiniLoading from "./MiniLoading";
-import { useQueryClient } from "@tanstack/react-query";
 
 const CitiesMenu: React.FC = () => {
     const { cities, currentCity, isLoading, handleSetCurrentCity } = useAppContext();
-    const queryClient = useQueryClient();
 
     //* set current city
     useEffect(() => {
@@ -37,10 +35,7 @@ const CitiesMenu: React.FC = () => {
                                     <button
                                         onClick={() => {
                                             handleSetCurrentCity(city);
-                                            queryClient.invalidateQueries({
-                                                queryKey: ["current-weather"],
-                                            });
-                                            window.location.reload();
+                                            // window.location.reload();
                                         }}>
                                         {city.name}
                                     </button>

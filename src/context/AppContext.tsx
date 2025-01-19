@@ -1,5 +1,6 @@
 "use client";
 import { safeLocalStorage } from "@/utils/safeLocalStorage";
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, use, useEffect, useState } from "react";
 
 export interface City {
@@ -22,12 +23,16 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [cities, setCities] = useState<City[]>([]);
     const [currentCity, setCurrentCity] = useState<AppContext["currentCity"]>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const queryClient = useQueryClient();
 
     const handleFirstLoad = () => {
         setIsLoading(true);
         const citiesLocalStorage = safeLocalStorage<City[]>("cities", []);
         setCities(citiesLocalStorage.get());
-        const currentCityLocalStorage = safeLocalStorage<AppContext["currentCity"]>("currnetCity", null);
+        const currentCityLocalStorage = safeLocalStorage<AppContext["currentCity"]>(
+            "currnetCity",
+            null
+        );
         setCurrentCity(currentCityLocalStorage.get());
         setIsLoading(false);
     };
@@ -62,8 +67,22 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         handleFirstLoad();
     }, []);
 
+    useEffect(() => {
+        queryClient.invalidateQueries({
+            queryKey: ["current-weather"],
+        });
+    }, [currentCity]);
+
     return (
-        <AppContext value={{ cities, isLoading, handleDeleteCity, handleAddCity, currentCity, handleSetCurrentCity }}>
+        <AppContext
+            value={{
+                cities,
+                isLoading,
+                handleDeleteCity,
+                handleAddCity,
+                currentCity,
+                handleSetCurrentCity,
+            }}>
             {children}
         </AppContext>
     );
