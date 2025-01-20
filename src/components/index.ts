@@ -6,3 +6,4 @@ export { default as ShowCurrentWeather } from "./ShowCurrentWeather";
 export { default as UpdateWeatherButton } from "./UpdateWeatherButton";
 export { default as WeatherView } from "./WeatherView";
 export { default as CitiesMenu } from "./CitiesMenu";
+export {default as InstallPWA} from "./InstallPWA"; 
