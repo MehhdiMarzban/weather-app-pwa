@@ -9,7 +9,6 @@ export const useGetCurrentWeather = (city: City["name"]) => {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,
         isFetching: isUpdatingCurrentWeather,
-        isFetched,
         isSuccess,
         isRefetchError,
         refetch: updateCurrentWeather,
