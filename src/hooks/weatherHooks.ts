@@ -1,21 +1,33 @@
-import { City } from "@/context/AppContext";
-import { getCurrentWeather } from "@/services/weather.services";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-
-export const useGetCurrentWeather = (city: City["name"]) => {
+import { City, useAppContext } from "@/context/AppContext";
+import { getCurrentWeather } from "@/services/weather.services";
+import defaultCity from "@/data/default.json";
+export const useGetCurrentWeather = (city: City) => {
+    const {handleSetCurrentCity, handleDeleteCity} = useAppContext();
     const {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,
         isFetching: isUpdatingCurrentWeather,
-        isFetched,
         isSuccess,
         isRefetchError,
         refetch: updateCurrentWeather,
     } = useQuery({
-        queryKey: ["current-weather", city],
-        queryFn: () => getCurrentWeather({ city }),
+        queryKey: ["current-weather", city.name],
+        queryFn: async () => {
+            try {
+                const response = await getCurrentWeather({ city: city.name });
+                if (response.cod === 200) {
+                    return response;
+                }
+            } catch (error) {
+                toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
+                handleDeleteCity(city.id);
+                handleSetCurrentCity(defaultCity);
+                return getCurrentWeather({ city: defaultCity.name });
+            }
+        },
     });
 
     useEffect(() => {
