@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 async function registerServiceWorker() {
-    const registration = await navigator.serviceWorker.register("/sw.js", {
+    await navigator.serviceWorker.register("/sw.js", {
         scope: "/",
         updateViaCache: "none",
     });
