@@ -40,7 +40,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
         isLoadingCurrentWeather,
         isUpdatingCurrentWeather,
         updateCurrentWeather,
-    } = useGetCurrentWeather(city.name);
+    } = useGetCurrentWeather(city);
 
     if (isLoadingCurrentWeather) {
         return <MiniLoading />;

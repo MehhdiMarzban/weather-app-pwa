@@ -12,6 +12,5 @@ export const useRegisterPWA = () => {
     useEffect(() => {
         registerServiceWorker();
     }, []);
-    console.log("PWA Registered");
     return null;
 };
