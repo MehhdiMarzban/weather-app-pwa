@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { Toaster } from "react-hot-toast";
 import AppFont from "@/constants/localFonts";
 import "./globals.css";
-import { Header } from "@/components";
+import { Footer, Header } from "@/components";
 import AppProvider from "@/context/AppContext";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
     title: "برنامه هواشناسی",
@@ -25,9 +25,10 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
                 <ReactQueryProvider>
                     <AppProvider>
                         <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
-                        <div className="bg-black bg-opacity-15 min-h-screen">
+                        <div className="bg-black bg-opacity-15 min-h-screen flex flex-col justify-between">
                             <Header />
                             <div className="container xl:max-w-screen-xl py-8">{children}</div>
+                            <Footer />
                         </div>
                     </AppProvider>
                 </ReactQueryProvider>
