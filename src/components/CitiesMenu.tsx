@@ -11,7 +11,7 @@ const CitiesMenu: React.FC = () => {
     //* set current city
     useEffect(() => {
         if (!currentCity && !isLoading) {
-            if (cities.length > 0) {
+            if (cities?.length > 0) {
                 handleSetCurrentCity(cities[0]);
             } else {
                 handleSetCurrentCity(defaultCity);
@@ -22,7 +22,7 @@ const CitiesMenu: React.FC = () => {
     if (isLoading) return <MiniLoading />;
 
     //* list cities without current city
-    const cityList = cities.filter((city) => city.id !== currentCity?.id);
+    const cityList = cities?.filter((city) => city.id !== currentCity?.id);
 
     return (
         <>
@@ -32,7 +32,7 @@ const CitiesMenu: React.FC = () => {
                         <details>
                             <summary>{currentCity?.name}</summary>
                             <ul className="p-2 w-32 bg-slate-900 bg-opacity-70 z-50 -left-1/4">
-                                {cityList.map((city) => (
+                                {cityList?.map((city) => (
                                     <li key={city.id}>
                                         <button
                                             onClick={() => {
@@ -74,7 +74,7 @@ const CitiesMenu: React.FC = () => {
                     <li>
                         <summary>فعلی : {currentCity?.name}</summary>
                         <ul className="p-2">
-                            {cityList.map((city) => (
+                            {cityList?.map((city) => (
                                 <li key={city.id}>
                                     <button
                                         className="text-base"
