@@ -7,6 +7,7 @@ const UpdateWeatherButton: React.FC<UpdateWeatherButtonProps> = ({isUpdatingWeat
     return (
         <button className="btn btn-sm btn-primary rounded-full p-2" onClick={() => updateFN()}>
             <svg
+                role="icon"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
