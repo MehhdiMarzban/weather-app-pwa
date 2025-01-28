@@ -4,6 +4,7 @@ const CityList: React.FC<{ cities: City[]; handleClickOnCityList: (city: City) =
     cities,
     handleClickOnCityList,
 }) => {
+    if (cities.length === 0) return null;
     return (
         <ul className="menu bg-base-300 glass rounded-box max-h-64 overflow-y-scroll overflow-x-hidden">
             <li>

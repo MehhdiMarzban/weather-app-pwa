@@ -88,15 +88,11 @@ export default function SelectCity() {
                 </div>
             </div>
             <div className="h-44 w-full sm:w-3/5 xl:w-2/5 block">
-                {showCities.length > 0 &&
-                    (isPendingShowCities ? (
-                        <MiniLoading />
-                    ) : (
-                        <CityList
-                            cities={showCities}
-                            handleClickOnCityList={handleClickOnCityList}
-                        />
-                    ))}
+                {isPendingShowCities ? (
+                    <MiniLoading />
+                ) : (
+                    <CityList cities={showCities} handleClickOnCityList={handleClickOnCityList} />
+                )}
             </div>
         </div>
     );
