@@ -52,7 +52,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                 <WeatherView.Body>
                     <WeatherView.Column className="md:col-span-4 space-y-0">
                         <div className="flex flex-row w-full justify-between items-center">
-                            <div className="stat-value text-slate-600">
+                            <div className="stat-value text-slate-600 truncate">
                                 {currentWeatherData?.name}
                             </div>
                             <UpdateWeatherButton
