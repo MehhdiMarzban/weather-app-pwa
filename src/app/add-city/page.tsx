@@ -3,8 +3,8 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import iranCities from "@/data/city.json";
-import { MiniLoading, SelectedCities } from "@/components";
-import { useAppContext } from "@/context/AppContext";
+import { CityList, MiniLoading, SelectedCities } from "@/components";
+import { City, useAppContext } from "@/context/AppContext";
 import Link from "next/link";
 
 /**
@@ -47,6 +47,14 @@ export default function SelectCity() {
         });
     };
 
+    const handleClickOnCityList = ({ id, name }: City) => {
+        setCityInputState("");
+        setShowCities([]);
+        handleAddCity({ id, name });
+        handleSetCurrentCity({ id, name });
+        router.push("/");
+    };
+
     return (
         <div className="flex flex-col gap-2 items-center justify-start">
             <div className="card glass w-full sm:w-3/5 xl:w-2/5">
@@ -72,37 +80,24 @@ export default function SelectCity() {
                             />
                         </svg>
                     </label>
-                    <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">بازگشت</Link>
+                    <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">
+                        بازگشت
+                    </Link>
                     {/* show selected user cities and can add or removed them */}
                     <SelectedCities />
                 </div>
             </div>
-            {showCities.length > 0 &&
-                (isPendingShowCities ? (
-                    <MiniLoading />
-                ) : (
-                    <ul className="menu bg-base-300 glass rounded-box max-h-44 overflow-y-scroll overflow-x-hidden w-full sm:w-3/5 xl:w-2/5">
-                        <li>
-                            <h2 className="menu-title">شهر مورد نظر خود را انتخاب کنید :</h2>
-                            <ul>
-                                {showCities.map((city) => (
-                                    <li key={city.id}>
-                                        <button
-                                            onClick={() => {
-                                                setCityInputState("");
-                                                setShowCities([]);
-                                                handleAddCity({ id: city.id, name: city.name });
-                                                handleSetCurrentCity({ id: city.id, name: city.name });
-                                                router.push("/");
-                                            }}>
-                                            {city.name}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    </ul>
-                ))}
+            <div className="h-44 w-full sm:w-3/5 xl:w-2/5 block">
+                {showCities.length > 0 &&
+                    (isPendingShowCities ? (
+                        <MiniLoading />
+                    ) : (
+                        <CityList
+                            cities={showCities}
+                            handleClickOnCityList={handleClickOnCityList}
+                        />
+                    ))}
+            </div>
         </div>
     );
 }
