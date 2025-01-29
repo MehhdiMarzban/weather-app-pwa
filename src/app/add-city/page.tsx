@@ -60,7 +60,11 @@ export default function SelectCity() {
             <div className="card glass w-full sm:w-3/5 xl:w-2/5">
                 <div className="card-body flex justify-center">
                     <h2 className="card-title">شهر خودت رو انتخاب کن :</h2>
-                    <SearchInput inputState={cityInputState} handleChangeInput={handleChangeInput} />
+                    <SearchInput
+                        inputState={cityInputState}
+                        handleChangeInput={handleChangeInput}
+                        placeholder="انتخاب شهر ..."
+                    />
                     <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">
                         بازگشت
                     </Link>

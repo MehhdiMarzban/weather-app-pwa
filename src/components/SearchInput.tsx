@@ -1,15 +1,26 @@
-interface SearchInputProps {
-    inputState : string;
+import { twMerge } from "tailwind-merge";
+
+interface SearchInputProps extends React.ComponentProps<"label"> {
+    inputState: string;
     handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    placeholder?: string;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({handleChangeInput, inputState}) => {
+const SearchInput: React.FC<SearchInputProps> = ({
+    handleChangeInput,
+    inputState,
+    placeholder = "",
+    className = "",
+    ...rest
+}) => {
     return (
-        <label className="input input-bordered flex items-center gap-2">
+        <label
+            className={twMerge("input input-bordered flex items-center gap-2", className)}
+            {...rest}>
             <input
                 type="text"
                 className="grow"
-                placeholder="انتخاب شهر ..."
+                placeholder={placeholder}
                 value={inputState}
                 onChange={handleChangeInput}
             />
