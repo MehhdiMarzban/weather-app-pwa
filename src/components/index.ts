@@ -8,4 +8,5 @@ export { default as UpdateWeatherButton } from "./UpdateWeatherButton";
 export { default as WeatherView } from "./WeatherView";
 export { default as CitiesMenu } from "./CitiesMenu";
 export { default as InstallPWA } from "./InstallPWA";
-export {default as CityList} from "./CityList";
+export { default as CityList } from "./CityList";
+export { default as SearchInput } from "./SearchInput";
