@@ -5,7 +5,7 @@ import { City, useAppContext } from "@/context/AppContext";
 import { getCurrentWeather } from "@/services/weather.services";
 import defaultCity from "@/data/default.json";
 export const useGetCurrentWeather = (city: City) => {
-    const {handleSetCurrentCity, handleDeleteCity} = useAppContext();
+    const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
     const {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,

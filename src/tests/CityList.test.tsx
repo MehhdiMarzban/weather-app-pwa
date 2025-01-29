@@ -27,7 +27,7 @@ describe("CityList", () => {
 
         for (const item of cities) {
             const listItemButton = screen.getByText(item.name);
-            //* check is in the document
+            //* check is in the document but is not neccessary because we used getByText and not using queryByText
             expect(listItemButton).toBeInTheDocument();
 
             //* fire event is not suitable for interactions and is simple simulate user events
