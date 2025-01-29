@@ -5,6 +5,7 @@ interface WeatherViewProps extends React.FC<React.ComponentProps<"div">> {
     Column: React.FC<React.ComponentProps<"div">>;
     SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps>;
     HeadItem: React.FC<React.ComponentProps<"div"> & HeadItemProps>;
+    ForecastItem: React.FC<React.ComponentProps<"div">>;
     Divider: React.FC;
 }
 
@@ -12,7 +13,7 @@ interface HeadItemProps {
     title: string;
 }
 interface SubItemProps {
-    title: string;
+    title?: string;
     value: string;
     signLeft?: string;
     signRight?: string;
@@ -66,7 +67,7 @@ const HeadItem: React.FC<React.ComponentProps<"div"> & HeadItemProps> = ({
 };
 
 const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
-    title,
+    title = null,
     value,
     signRight = null,
     signLeft = null,
@@ -97,6 +98,14 @@ const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
     );
 };
 
+const ForecastItem: React.FC<React.ComponentProps<"div">> = ({children, className,...rest}) => {
+    return (
+        <div className={twMerge("flex-none w-48 bg-slate-200 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
+            {children}
+        </div>
+    );
+};
+
 const Divider: React.FC = () => {
     return (
         <div className="divider divider-vertical md:divider-horizontal col-span-1 md:col-span-1" />
@@ -107,6 +116,7 @@ WeatherView.Body = Body;
 WeatherView.Column = Column;
 WeatherView.HeadItem = HeadItem;
 WeatherView.SubItem = SubItem;
+WeatherView.ForecastItem = ForecastItem;
 WeatherView.Divider = Divider;
 
 export default WeatherView;

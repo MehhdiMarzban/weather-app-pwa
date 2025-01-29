@@ -3,7 +3,7 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import { MiniLoading, UpdateWeatherButton, WeatherView } from "@/components";
+import { MiniLoading, ShowForecastWeather, UpdateWeatherButton, WeatherView } from "@/components";
 import { City } from "@/context/AppContext";
 
 interface ShowCurrentWeatherProps {
@@ -49,7 +49,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
     return (
         <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
             <WeatherView>
-                <WeatherView.Body>
+                <WeatherView.Body className="pb-2">
                     <WeatherView.Column className="md:col-span-4 space-y-0">
                         <div className="flex flex-row w-full justify-between items-center">
                             <div className="stat-value text-slate-600 truncate">
@@ -173,6 +173,9 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                         />
                     </WeatherView.Column>
                 </WeatherView.Body>
+                <div className="divider divider-vertical col-span-1 md:col-span-1 w-full px-8 my-0 py-0" />
+                {/* show forecast */}
+                <ShowForecastWeather city={city}/>
             </WeatherView>
         </section>
     );
