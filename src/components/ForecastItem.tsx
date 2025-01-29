@@ -1,14 +1,15 @@
 import Image from "next/image";
-import {format} from "date-fns-jalali";
+import { format } from "date-fns-jalali";
 import WeatherView from "./WeatherView";
 
 const ForecastItem: React.FC<{ forecastData: any }> = ({ forecastData }) => {
     return (
         <WeatherView.ForecastItem>
-            <div className="flex flex-row items-center justify-around text-lg font-bold stat-desc">
-                <span>{format(new Date(forecastData?.dt_txt), "EEEE")}</span>
-                <span className="align-middle text-sm">{format(new Date(forecastData?.dt_txt), "dd MMMMMMMM")}</span>
-            </div>
+            <WeatherView.SubItem
+                className="text-time [&>span]:!text-base"
+                title={format(new Date(forecastData?.dt_txt), "EEEE")}
+                value={format(new Date(forecastData?.dt_txt), "dd MMMMMMMM")}
+            />
             <WeatherView.HeadItem
                 className="flex-col-reverse"
                 title={forecastData?.weather[0]?.description}>
