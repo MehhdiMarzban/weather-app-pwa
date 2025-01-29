@@ -3,7 +3,7 @@ import CityBadge from "@/components/CityBadge";
 import { useAppContext } from "@/context/AppContext";
 import MiniLoading from "./MiniLoading";
 
-const SelectedCities: React.FC = () => {
+const CitySelectionList: React.FC = () => {
     const { cities: selectedCities, isLoading, handleDeleteCity } = useAppContext();
     if (isLoading) return <MiniLoading />;
     return (
@@ -24,4 +24,4 @@ const SelectedCities: React.FC = () => {
     );
 };
 
-export default SelectedCities;
+export default CitySelectionList;

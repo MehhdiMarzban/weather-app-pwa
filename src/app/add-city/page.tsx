@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import iranCities from "@/data/city.json";
-import { CityList, MiniLoading, SearchInput, SelectedCities } from "@/components";
+import { CityList, MiniLoading, SearchInput, CitySelectionList } from "@/components";
 import { City, useAppContext } from "@/context/AppContext";
 import Link from "next/link";
 
@@ -69,7 +69,7 @@ export default function SelectCity() {
                         بازگشت
                     </Link>
                     {/* show selected user cities and can add or removed them */}
-                    <SelectedCities />
+                    <CitySelectionList />
                 </div>
             </div>
             <div className="h-44 w-full sm:w-3/5 xl:w-2/5 block">
