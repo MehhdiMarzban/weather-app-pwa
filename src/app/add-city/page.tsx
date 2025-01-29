@@ -3,8 +3,8 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import iranCities from "@/data/city.json";
-import { MiniLoading, SelectedCities } from "@/components";
-import { useAppContext } from "@/context/AppContext";
+import { CityList, MiniLoading, SearchInput, SelectedCities } from "@/components";
+import { City, useAppContext } from "@/context/AppContext";
 import Link from "next/link";
 
 /**
@@ -47,62 +47,38 @@ export default function SelectCity() {
         });
     };
 
+    const handleClickOnCityList = ({ id, name }: City) => {
+        setCityInputState("");
+        setShowCities([]);
+        handleAddCity({ id, name });
+        handleSetCurrentCity({ id, name });
+        router.push("/");
+    };
+
     return (
         <div className="flex flex-col gap-2 items-center justify-start">
             <div className="card glass w-full sm:w-3/5 xl:w-2/5">
                 <div className="card-body flex justify-center">
                     <h2 className="card-title">شهر خودت رو انتخاب کن :</h2>
-                    <label className="input input-bordered flex items-center gap-2">
-                        <input
-                            type="text"
-                            className="grow"
-                            placeholder="انتخاب شهر ..."
-                            value={cityInputState}
-                            onChange={handleChangeInput}
-                        />
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            className="h-4 w-4 opacity-70">
-                            <path
-                                fillRule="evenodd"
-                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                    </label>
-                    <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">بازگشت</Link>
+                    <SearchInput
+                        inputState={cityInputState}
+                        handleChangeInput={handleChangeInput}
+                        placeholder="انتخاب شهر ..."
+                    />
+                    <Link href={"/"} className="btn btn-sm lg:btn-md btn-primary w-1/3 mr-auto">
+                        بازگشت
+                    </Link>
                     {/* show selected user cities and can add or removed them */}
                     <SelectedCities />
                 </div>
             </div>
-            {showCities.length > 0 &&
-                (isPendingShowCities ? (
+            <div className="h-44 w-full sm:w-3/5 xl:w-2/5 block">
+                {isPendingShowCities ? (
                     <MiniLoading />
                 ) : (
-                    <ul className="menu bg-base-300 glass rounded-box max-h-44 overflow-y-scroll overflow-x-hidden w-full sm:w-3/5 xl:w-2/5">
-                        <li>
-                            <h2 className="menu-title">شهر مورد نظر خود را انتخاب کنید :</h2>
-                            <ul>
-                                {showCities.map((city) => (
-                                    <li key={city.id}>
-                                        <button
-                                            onClick={() => {
-                                                setCityInputState("");
-                                                setShowCities([]);
-                                                handleAddCity({ id: city.id, name: city.name });
-                                                handleSetCurrentCity({ id: city.id, name: city.name });
-                                                router.push("/");
-                                            }}>
-                                            {city.name}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    </ul>
-                ))}
+                    <CityList cities={showCities} handleClickOnCityList={handleClickOnCityList} />
+                )}
+            </div>
         </div>
     );
 }
