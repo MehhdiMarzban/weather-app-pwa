@@ -6,7 +6,7 @@ const ForecastItem: React.FC<{ forecastData: any }> = ({ forecastData }) => {
     return (
         <WeatherView.ForecastItem>
             <WeatherView.SubItem
-                className="text-time [&>span]:!text-base"
+                className="text-time [&>span]:!text-base justify-around"
                 title={format(new Date(forecastData?.dt_txt), "EEEE")}
                 value={format(new Date(forecastData?.dt_txt), "dd MMMMMMMM")}
             />
