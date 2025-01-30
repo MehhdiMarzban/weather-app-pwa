@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <div className="flex flex-col gap-2 items-center justify-center">
             <InstallPWA />
-            <section className="w-full sm:w-4/5 md:w-11/12 xl:w-3/5">
+            <section className="w-full sm:w-4/5 md:w-11/12 xl:w-8/12">
                 <WeatherView>
                     <ShowCurrentWeather city={currentCity as City} />
                     <div className="divider divider-vertical col-span-1 md:col-span-1 w-full px-8 my-0 py-0" />

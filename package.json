@@ -20,6 +20,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-slick": "^0.23.13",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/ui": "3.0.4",
     "daisyui": "^4.12.23",
