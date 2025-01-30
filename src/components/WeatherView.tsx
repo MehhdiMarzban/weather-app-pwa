@@ -22,7 +22,7 @@ interface SubItemProps {
 const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
     return (
         <div
-            className={twMerge("card glass bg-slate-200 bg-opacity-30 shadow-lg w-full", className)}
+            className={twMerge("md:card md:glass md:bg-white md:bg-opacity-20 md:shadow-lg w-full", className)}
             {...rest}>
             {children}
         </div>
@@ -100,7 +100,7 @@ const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
 
 const ForecastItem: React.FC<React.ComponentProps<"div">> = ({children, className,...rest}) => {
     return (
-        <div className={twMerge("flex-none border border-gray-300 md:border-none w-48 bg-slate-200 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
+        <div className={twMerge("flex-none border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
             {children}
         </div>
     );
