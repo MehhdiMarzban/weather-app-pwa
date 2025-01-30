@@ -5,10 +5,11 @@ import { ForecastItem } from "@/components";
 const settings = {
     dots: false,
     infinite: false,
+    arrows: false,
+    initialSlide: 1,
     speed: 500,
     slidesToShow: 4, // تعداد کارت‌هایی که در یک اسلاید نمایش داده می‌شوند
     slidesToScroll: 1,
-    centerPadding: "20px",
     responsive: [
         {
             breakpoint: 1024,
@@ -41,7 +42,7 @@ const ForecastItemList: React.FC<{ forecastWeatherData: any }> = ({ forecastWeat
     }
 
     return (
-        <div className="w-full">
+        <div className="w-full" dir="rtl">
             <Slider {...settings} >{forecastList}</Slider>
         </div>
     );
