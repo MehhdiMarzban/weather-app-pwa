@@ -31,7 +31,6 @@ export const useGetCurrentWeather = (city: City) => {
     const {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,
-        isFetching: isUpdatingCurrentWeather,
         refetch: updateCurrentWeather,
     } = useQuery({
         queryKey: ["weather", "current-weather", city?.name],
@@ -52,7 +51,6 @@ export const useGetCurrentWeather = (city: City) => {
     return {
         currentWeatherData,
         isLoadingCurrentWeather,
-        isUpdatingCurrentWeather,
         updateCurrentWeather,
     };
 };
@@ -90,7 +88,6 @@ export const useGetForecastWeather = (city: City) => {
     return {
         forecastWeatherData,
         isLoadingForecastWeather,
-        isUpdatingForecastWeather,
         updateForecastWeather,
     };
 };
