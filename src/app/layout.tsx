@@ -21,11 +21,11 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
     return (
         <html lang="fa-IR" dir="rtl">
             <body
-                className={`${AppFont.variable} font-sans min-h-screen bg-base-100 md:bg-main-image bg-cover bg-center bg-fixed bg-no-repeat`}>
+                className={`${AppFont.variable} font-sans min-h-screen bg-gray-200 md:bg-main-image md:bg-cover md:bg-center md:bg-fixed md:bg-no-repeat`}>
                 <ReactQueryProvider>
                     <AppProvider>
                         <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
-                        <div className="bg-black bg-opacity-15 min-h-screen flex flex-col justify-between">
+                        <div className="min-h-screen flex flex-col justify-between">
                             <Header />
                             <div className="container xl:max-w-screen-xl py-8">{children}</div>
                             <Footer />
