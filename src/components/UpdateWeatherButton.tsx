@@ -1,11 +1,15 @@
-interface UpdateWeatherButtonProps {
-    isUpdatingWeather: boolean;
-    updateFN: () => void;
-}
+"use client";
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 
-const UpdateWeatherButton: React.FC<UpdateWeatherButtonProps> = ({isUpdatingWeather = false, updateFN}) => {
+const UpdateWeatherButton: React.FC = () => {
+    const queryClient = useQueryClient();
+    const isFetching = useIsFetching();
     return (
-        <button className="btn btn-sm btn-primary rounded-full p-2" onClick={() => updateFN()}>
+        <button
+            className="btn btn-sm btn-primary rounded-full p-2"
+            onClick={() => {
+                queryClient.refetchQueries({ queryKey: ["weather"] });
+            }}>
             <svg
                 role="icon"
                 xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +17,7 @@ const UpdateWeatherButton: React.FC<UpdateWeatherButtonProps> = ({isUpdatingWeat
                 viewBox="0 0 24 24"
                 strokeWidth="3"
                 stroke="currentColor"
-                className={`size-4 ${isUpdatingWeather ? "animate-spin" : null}`}>
+                className={`size-4 ${isFetching ? "animate-spin" : null}`}>
                 <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

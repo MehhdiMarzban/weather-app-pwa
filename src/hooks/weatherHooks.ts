@@ -4,38 +4,50 @@ import toast from "react-hot-toast";
 import { City, useAppContext } from "@/context/AppContext";
 import { getCurrentWeather, getForecastWeather } from "@/services/weather.services";
 import defaultCity from "@/data/default.json";
+
+let isFirstSuccess = false;
+
+const handleError = (
+    error: any,
+    handleDeleteCity: (id: string) => void,
+    handleSetCurrentCity: (city: City) => void,
+    city: City
+) => {
+    toast.dismiss();
+    if (error?.response?.status === 404) {
+        toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
+        handleDeleteCity(city.id);
+        handleSetCurrentCity(defaultCity);
+        return getForecastWeather({ city: defaultCity.name });
+    }
+    else if(error?.code === "ERR_NETWORK"){
+        toast.error("لطفا دسترسی به اینترنت خود را بررسی کنید !");
+        return {};
+    }
+};
+
 export const useGetCurrentWeather = (city: City) => {
     const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
     const {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,
         isFetching: isUpdatingCurrentWeather,
-        isSuccess,
-        isRefetchError,
         refetch: updateCurrentWeather,
     } = useQuery({
-        queryKey: ["current-weather", city.name],
+        queryKey: ["weather", "current-weather", city?.name],
         queryFn: async () => {
             try {
+                isFirstSuccess = false;
                 const response = await getCurrentWeather({ city: city.name });
                 if (response.cod == 200) {
+                    isFirstSuccess = true;
                     return response;
                 }
             } catch (error) {
-                toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
-                handleDeleteCity(city.id);
-                handleSetCurrentCity(defaultCity);
-                return getCurrentWeather({ city: defaultCity.name });
+                handleError(error, handleDeleteCity, handleSetCurrentCity, city);
             }
         },
     });
-
-    useEffect(() => {
-        if (!isUpdatingCurrentWeather && isSuccess) toast.success("با موفقیت بروزرسانی شد !");
-    }, [isSuccess, isUpdatingCurrentWeather]);
-    useEffect(() => {
-        if (isRefetchError) toast.error("امکان بروزرسانی آب و هوا وجود ندارد !");
-    }, [isRefetchError]);
 
     return {
         currentWeatherData,
@@ -55,7 +67,7 @@ export const useGetForecastWeather = (city: City) => {
         isRefetchError,
         refetch: updateForecastWeather,
     } = useQuery({
-        queryKey: ["forecast-weather", city.name],
+        queryKey: ["weather", "forecast-weather", city?.name],
         queryFn: async () => {
             try {
                 const response = await getForecastWeather({ city: city.name });
@@ -63,16 +75,13 @@ export const useGetForecastWeather = (city: City) => {
                     return response;
                 }
             } catch (error) {
-                toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
-                handleDeleteCity(city.id);
-                handleSetCurrentCity(defaultCity);
-                return getForecastWeather({ city: defaultCity.name });
+                handleError(error, handleDeleteCity, handleSetCurrentCity, city);
             }
         },
     });
-
     useEffect(() => {
-        if (!isUpdatingForecastWeather && isSuccess) toast.success("با موفقیت بروزرسانی شد !");
+        if (!isUpdatingForecastWeather && isSuccess && isFirstSuccess)
+            toast.success("با موفقیت بروزرسانی شد !");
     }, [isSuccess, isUpdatingForecastWeather]);
     useEffect(() => {
         if (isRefetchError) toast.error("امکان بروزرسانی آب و هوا وجود ندارد !");

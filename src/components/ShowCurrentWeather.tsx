@@ -35,12 +35,7 @@ interface ShowCurrentWeatherProps {
  */
 
 const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
-    const {
-        currentWeatherData,
-        isLoadingCurrentWeather,
-        isUpdatingCurrentWeather,
-        updateCurrentWeather,
-    } = useGetCurrentWeather(city);
+    const { currentWeatherData, isLoadingCurrentWeather } = useGetCurrentWeather(city);
 
     if (isLoadingCurrentWeather) {
         return <MiniLoading />;
@@ -53,10 +48,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                     <div className="stat-value text-slate-600 truncate">
                         {currentWeatherData?.name}
                     </div>
-                    <UpdateWeatherButton
-                        isUpdatingWeather={isUpdatingCurrentWeather}
-                        updateFN={updateCurrentWeather}
-                    />
+                    <UpdateWeatherButton />
                 </div>
                 <WeatherView.HeadItem title={currentWeatherData?.weather[0]?.description}>
                     <Image

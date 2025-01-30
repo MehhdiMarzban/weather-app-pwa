@@ -31,8 +31,11 @@ const ShowForecastWeather: React.FC<{ city: City }> = ({ city }) => {
     }
 
     return (
-        <div className="py-2 mx-8 flex flex-row gap-2 overflow-x-scroll">
-            <ForecastItemList forecastWeatherData={forecastWeatherData} />
+        <div className="py-2 mx-8">
+            <p className="mb-2 font-bold text-gray-600">پیش بینی آب و هوا</p>
+            <div className="flex flex-row gap-2 overflow-x-scroll">
+                <ForecastItemList forecastWeatherData={forecastWeatherData} />
+            </div>
         </div>
     );
 };

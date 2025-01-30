@@ -70,7 +70,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         queryClient.invalidateQueries({
-            queryKey: ["current-weather"],
+            queryKey: [currentCity?.name],
         });
     }, [currentCity]);
 
