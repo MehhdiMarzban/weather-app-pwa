@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 import AppFont from "@/constants/localFonts";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import { Footer, Header } from "@/components";
 import AppProvider from "@/context/AppContext";

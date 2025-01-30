@@ -100,7 +100,7 @@ const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
 
 const ForecastItem: React.FC<React.ComponentProps<"div">> = ({children, className,...rest}) => {
     return (
-        <div className={twMerge("flex-none border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
+        <div className={twMerge("flex-none mx-auto border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
             {children}
         </div>
     );

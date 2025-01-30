@@ -2,7 +2,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient({
-    defaultOptions: { queries: { networkMode: "offlineFirst" } },
+    defaultOptions: { queries: { networkMode: "offlineFirst"} },
 });
 
 const ReactQueryProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
