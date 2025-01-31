@@ -13,3 +13,4 @@ export { default as SearchInput } from "./SearchInput";
 export { default as ShowForecastWeather } from "./ShowForecastWeather";
 export { default as ForecastItem } from "./ForecastItem";
 export { default as ForecastItemList } from "./ForecastItemList";
+export { default as SwiperButtons } from "./SwiperButtons";
