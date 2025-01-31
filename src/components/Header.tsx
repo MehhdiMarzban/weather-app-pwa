@@ -4,7 +4,7 @@ import { CitiesMenu } from "@/components";
 
 const Header: React.FC = () => {
     return (
-        <div className="navbar bg-primary bgblur lg:bg-slate-900 lg:bg-opacity-50">
+        <div className="navbar bg-primary">
             <div className="container xl:max-w-screen-xl text-white">
                 <div className="flex-1">
                     <Link href="/" className="btn btn-ghost text-base md:text-xl items-center">
