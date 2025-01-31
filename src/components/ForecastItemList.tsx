@@ -1,15 +1,14 @@
 "use client";
 import { Swiper, SwiperSlide, SwiperProps } from "swiper/react";
-import { Scrollbar, Navigation } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/scrollbar";
 import "swiper/css/navigation";
 
 import { ForecastItem, SwiperButtons } from "@/components";
 
 const settings = {
-    modules: [Scrollbar, Navigation],
+    modules: [Navigation],
     scrollbar: {
         hide: true,
     },
@@ -36,7 +35,6 @@ interface ForecastItemListProps {
     forecastWeatherData: { list: Array<any> };
 }
 const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData }) => {
-    
     let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
         if (index % 8 === 0) {
             acc.push(
