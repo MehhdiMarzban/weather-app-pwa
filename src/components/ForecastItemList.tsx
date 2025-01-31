@@ -1,52 +1,35 @@
 "use client";
-import Slider from "react-slick";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import { ForecastItem } from "@/components";
 
 const settings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    initialSlide: 1,
-    speed: 500,
-    slidesToShow: 4, // تعداد کارت‌هایی که در یک اسلاید نمایش داده می‌شوند
-    slidesToScroll: 1,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                initialSlide: 2,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-            },
+    slidesPerView: 1,
+    breakpoints: {
+        460: {
+            slidesPerView: 2,
         },
-        {
-            breakpoint: 768,
-            settings: {
-                initialSlide: 3,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-            },
+        768: {
+            slidesPerView: 3,
         },
-        {
-            breakpoint: 480,
-            settings: {
-                initialSlide: 4,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
+        1024: {
+            slidesPerView: 4,
         },
-    ],
+    },
 };
-
 const ForecastItemList: React.FC<{ forecastWeatherData: any }> = ({ forecastWeatherData }) => {
     let forecastList = [];
     for (let i = 0; i < forecastWeatherData?.list.length; i += 8) {
-        forecastList.push(<ForecastItem key={i} forecastData={forecastWeatherData?.list[i]} />);
+        forecastList.push(
+            <SwiperSlide key={i}>
+                <ForecastItem forecastData={forecastWeatherData?.list[i]} />
+            </SwiperSlide>
+        );
     }
 
     return (
-        <div className="w-full" dir="rtl">
-            <Slider {...settings}>{forecastList}</Slider>
+        <div className="w-full">
+            <Swiper {...settings}>{forecastList}</Swiper>
         </div>
     );
 };
