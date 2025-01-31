@@ -1,49 +1,57 @@
 "use client";
-import Slider from "react-slick";
-import { ForecastItem } from "@/components";
+import { Swiper, SwiperSlide, SwiperProps } from "swiper/react";
+import { Scrollbar, Navigation } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/scrollbar";
+import "swiper/css/navigation";
+
+import { ForecastItem, SwiperButtons } from "@/components";
 
 const settings = {
-    dots: false,
-    infinite: false,
-    arrows: false,
-    initialSlide: 1,
-    speed: 500,
-    slidesToShow: 4, // تعداد کارت‌هایی که در یک اسلاید نمایش داده می‌شوند
-    slidesToScroll: 1,
-    responsive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-            },
+    modules: [Scrollbar, Navigation],
+    scrollbar: {
+        hide: true,
+    },
+    navigation: {
+        nextEl: ".swiper-btn-next",
+        prevEl: ".swiper-btn-prev",
+    },
+    grabCursor: true,
+    slidesPerView: 1,
+    breakpoints: {
+        460: {
+            slidesPerView: 2,
         },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-            },
+        768: {
+            slidesPerView: 3,
         },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
+        1024: {
+            slidesPerView: 4,
         },
-    ],
-};
+    },
+} satisfies SwiperProps;
 
-const ForecastItemList: React.FC<{ forecastWeatherData: any }> = ({ forecastWeatherData }) => {
-    let forecastList = [];
-    for (let i = 0; i < forecastWeatherData?.list.length; i += 8) {
-        forecastList.push(<ForecastItem key={i} forecastData={forecastWeatherData?.list[i]} />);
-    }
+interface ForecastItemListProps {
+    forecastWeatherData: { list: Array<any> };
+}
+const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData }) => {
+    
+    let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
+        if (index % 8 === 0) {
+            acc.push(
+                <SwiperSlide key={item?.dt_txt}>
+                    <ForecastItem forecastData={item} />
+                </SwiperSlide>
+            );
+        }
+        return acc;
+    }, []);
 
     return (
-        <div className="w-full" dir="rtl">
-            <Slider {...settings} >{forecastList}</Slider>
+        <div className="relative">
+            <Swiper {...settings}>{forecastList}</Swiper>
+            <SwiperButtons />
         </div>
     );
 };
