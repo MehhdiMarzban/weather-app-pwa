@@ -14,6 +14,7 @@ const settings = {
         {
             breakpoint: 1024,
             settings: {
+                initialSlide: 2,
                 slidesToShow: 3,
                 slidesToScroll: 1,
             },
@@ -21,6 +22,7 @@ const settings = {
         {
             breakpoint: 768,
             settings: {
+                initialSlide: 3,
                 slidesToShow: 2,
                 slidesToScroll: 1,
             },
@@ -28,6 +30,7 @@ const settings = {
         {
             breakpoint: 480,
             settings: {
+                initialSlide: 4,
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
@@ -43,7 +46,7 @@ const ForecastItemList: React.FC<{ forecastWeatherData: any }> = ({ forecastWeat
 
     return (
         <div className="w-full" dir="rtl">
-            <Slider {...settings} >{forecastList}</Slider>
+            <Slider {...settings}>{forecastList}</Slider>
         </div>
     );
 };
