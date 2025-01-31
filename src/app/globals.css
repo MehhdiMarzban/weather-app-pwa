@@ -9,11 +9,11 @@
     }
 
     .swiper-btn-next {
-        @apply -left-6;
+        @apply -left-2  sm:-left-4 md:-left-5 lg:-left-6;
     }
 
     .swiper-btn-prev {
-        @apply -right-6
+        @apply -right-2 sm:-right-4 md:-right-5 lg:-right-6;
     }
 
     .text-time {
