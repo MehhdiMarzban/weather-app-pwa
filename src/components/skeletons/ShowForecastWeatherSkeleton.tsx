@@ -1,6 +1,13 @@
 import { useId } from "react";
 import Skeleton from "react-loading-skeleton";
 
+/**
+ * A skeleton component for the ShowForecastWeather component.
+ *
+ * Displays a skeleton of the ShowForecastWeather component while the data is being loaded.
+ *
+ * @returns A JSX element representing the skeleton of the ShowForecastWeather component.
+ */
 const ShowForecastWeatherSkeleton = () => {
     const skeletonKey = useId();
     return (

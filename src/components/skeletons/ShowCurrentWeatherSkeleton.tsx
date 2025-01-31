@@ -1,6 +1,13 @@
 import Skeleton from "react-loading-skeleton";
 import { WeatherView } from "@/components";
 
+/**
+ * A skeleton component for the ShowCurrentWeather component.
+ *
+ * Displays a skeleton of the ShowCurrentWeather component while the data is being loaded.
+ *
+ * @returns A JSX element representing the skeleton of the ShowCurrentWeather component.
+ */
 const ShowCurrentWeatherSkeleton: React.FC = () => {
     return (
         <WeatherView.Body className="pb-2">
