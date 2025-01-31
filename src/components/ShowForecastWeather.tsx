@@ -1,5 +1,5 @@
 "use client";
-import { ForecastItemList, MiniLoading } from "@/components";
+import { ForecastItemList, ShowForecastWeatherSkeleton } from "@/components";
 import { City } from "@/context/AppContext";
 import { useGetForecastWeather } from "@/hooks/weatherHooks";
 
@@ -27,7 +27,7 @@ const ShowForecastWeather: React.FC<{ city: City }> = ({ city }) => {
     const { forecastWeatherData, isLoadingForecastWeather } = useGetForecastWeather(city);
 
     if (isLoadingForecastWeather) {
-        return <MiniLoading />;
+        return <ShowForecastWeatherSkeleton />;
     }
 
     return (

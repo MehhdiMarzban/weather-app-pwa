@@ -3,7 +3,7 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import { MiniLoading, UpdateWeatherButton, WeatherView } from "@/components";
+import { ShowCurrentWeatherSkeleton, UpdateWeatherButton, WeatherView } from "@/components";
 import { City } from "@/context/AppContext";
 
 interface ShowCurrentWeatherProps {
@@ -38,7 +38,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
     const { currentWeatherData, isLoadingCurrentWeather } = useGetCurrentWeather(city);
 
     if (isLoadingCurrentWeather) {
-        return <MiniLoading />;
+        return <ShowCurrentWeatherSkeleton />;
     }
 
     return (

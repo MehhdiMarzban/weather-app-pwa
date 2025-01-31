@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import AppFont from "@/constants/localFonts";
 import { Footer, Header } from "@/components";
@@ -27,11 +29,13 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
                 <ReactQueryProvider>
                     <AppProvider>
                         <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
-                        <div className="min-h-screen flex flex-col justify-between">
-                            <Header />
-                            <div className="container xl:max-w-screen-xl py-8">{children}</div>
-                            <Footer />
-                        </div>
+                        <SkeletonTheme baseColor="#676562" highlightColor="#e5e7eb">
+                            <div className="min-h-screen flex flex-col justify-between">
+                                <Header />
+                                <div className="container xl:max-w-screen-xl py-8">{children}</div>
+                                <Footer />
+                            </div>
+                        </SkeletonTheme>
                     </AppProvider>
                 </ReactQueryProvider>
             </body>
