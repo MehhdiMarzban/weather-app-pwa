@@ -1,9 +1,23 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, SwiperProps } from "swiper/react";
+import { Scrollbar, Navigation } from "swiper/modules";
+
 import "swiper/css";
-import { ForecastItem } from "@/components";
+import "swiper/css/scrollbar";
+import "swiper/css/navigation";
+
+import { ForecastItem, SwiperButtons } from "@/components";
 
 const settings = {
+    modules: [Scrollbar, Navigation],
+    scrollbar: {
+        hide: true,
+    },
+    navigation: {
+        nextEl: ".swiper-btn-next",
+        prevEl: ".swiper-btn-prev",
+    },
+    grabCursor: true,
     slidesPerView: 1,
     breakpoints: {
         460: {
@@ -16,20 +30,28 @@ const settings = {
             slidesPerView: 4,
         },
     },
-};
-const ForecastItemList: React.FC<{ forecastWeatherData: any }> = ({ forecastWeatherData }) => {
-    let forecastList = [];
-    for (let i = 0; i < forecastWeatherData?.list.length; i += 8) {
-        forecastList.push(
-            <SwiperSlide key={i}>
-                <ForecastItem forecastData={forecastWeatherData?.list[i]} />
-            </SwiperSlide>
-        );
-    }
+} satisfies SwiperProps;
+
+interface ForecastItemListProps {
+    forecastWeatherData: { list: Array<any> };
+}
+const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData }) => {
+    
+    let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
+        if (index % 8 === 0) {
+            acc.push(
+                <SwiperSlide key={item?.dt_txt}>
+                    <ForecastItem forecastData={item} />
+                </SwiperSlide>
+            );
+        }
+        return acc;
+    }, []);
 
     return (
-        <div className="w-full">
+        <div className="relative">
             <Swiper {...settings}>{forecastList}</Swiper>
+            <SwiperButtons />
         </div>
     );
 };

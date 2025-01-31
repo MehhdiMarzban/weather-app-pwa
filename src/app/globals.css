@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 @layer components {
+
+    .swiper-btn {
+        @apply btn btn-sm btn-primary !p-0 absolute top-1/2 z-10 -translate-y-1/2;
+    }
+
+    .swiper-btn-next {
+        @apply -left-6;
+    }
+
+    .swiper-btn-prev {
+        @apply -right-6
+    }
+
     .text-time {
         @apply text-[1.2rem] text-slate-600;
     }
