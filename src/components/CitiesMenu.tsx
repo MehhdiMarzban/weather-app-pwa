@@ -1,10 +1,26 @@
 "use client";
 import Link from "next/link";
 import { useEffect } from "react";
+
 import { useAppContext } from "@/context/AppContext";
 import MiniLoading from "./MiniLoading";
 import defaultCity from "@/data/default.json";
 
+/**
+ * CitiesMenu component displays a dropdown menu with the current city and other cities without the current city.
+ * It also contains a link to add a new city.
+ *
+ * When the component mounts and there is no current city, it sets the first city in the list as the current city.
+ *
+ * The component uses the useAppContext hook to get the list of cities, the current city, and the isLoading state.
+ *
+ * The component renders a button with the current city name and a dropdown menu with other cities.
+ * When a city is selected from the dropdown menu, it sets the selected city as the current city.
+ *
+ * The component also renders a link to add a new city.
+ *
+ * @returns A JSX element representing the CitiesMenu component.
+ */
 const CitiesMenu: React.FC = () => {
     const { cities, currentCity, isLoading, handleSetCurrentCity } = useAppContext();
 
