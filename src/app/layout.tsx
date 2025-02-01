@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<React.PropsWithChildre
                 <ReactQueryProvider>
                     <AppProvider>
                         <Toaster position="bottom-left" toastOptions={{ duration: 3000 }} />
-                        <SkeletonTheme baseColor="#676562" highlightColor="#e5e7eb">
+                        <SkeletonTheme baseColor="#34495e60" highlightColor="#e5e7eb">
                             <div className="min-h-screen flex flex-col justify-between">
                                 <Header />
                                 <div className="container xl:max-w-screen-xl py-8">{children}</div>
