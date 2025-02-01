@@ -5,7 +5,7 @@
 @layer components {
 
     .swiper-btn {
-        @apply btn btn-sm btn-primary !p-0 absolute top-1/2 z-10 -translate-y-1/2;
+        @apply btn btn-primary btn-sm p-0 absolute top-1/2 z-10 -translate-y-1/2 animate-none;
     }
 
     .swiper-btn-next {
