@@ -1,16 +1,26 @@
 "use client";
 
-import { InstallPWA, MiniLoading, ShowCurrentWeather, ShowForecastWeather, WeatherView } from "@/components";
+import { InstallPWA, MiniLoading, WeatherView } from "@/components";
 import { City, useAppContext } from "@/context/AppContext";
 import { useRegisterPWA } from "@/hooks/pwa";
+import dynamic from "next/dynamic";
+
+const ShowCurrentWeather = dynamic(() => import("@/components").then((mod) => mod.ShowCurrentWeather), {
+    ssr: false,
+    loading: () => <p>در حال بارگزاری</p>,
+});
+const ShowForecastWeather = dynamic(() => import("@/components").then((mod) => mod.ShowForecastWeather), {
+    ssr: false,
+    loading: () => <p>در حال بارگزاری</p>,
+});
 
 export default function Home() {
     const { currentCity, isLoading } = useAppContext();
-    
+
     useRegisterPWA();
 
     if (isLoading) return <MiniLoading />;
-    
+
     return (
         <div className="flex flex-col gap-2 items-center justify-center">
             <InstallPWA />
