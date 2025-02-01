@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { City, useAppContext } from "@/context/AppContext";
 import { getCurrentWeather, getForecastWeather } from "@/services/weather.services";
@@ -32,7 +32,7 @@ export const useGetCurrentWeather = (city: City) => {
         data: currentWeatherData,
         isLoading: isLoadingCurrentWeather,
         refetch: updateCurrentWeather,
-    } = useQuery({
+    } = useSuspenseQuery({
         queryKey: ["weather", "current-weather", city?.name],
         queryFn: async () => {
             try {
@@ -64,7 +64,7 @@ export const useGetForecastWeather = (city: City) => {
         isSuccess,
         isRefetchError,
         refetch: updateForecastWeather,
-    } = useQuery({
+    } = useSuspenseQuery({
         queryKey: ["weather", "forecast-weather", city?.name],
         queryFn: async () => {
             try {

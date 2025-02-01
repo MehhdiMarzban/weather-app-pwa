@@ -1,5 +1,5 @@
 "use client";
-import { ForecastItemList, ShowForecastWeatherSkeleton } from "@/components";
+import { ForecastItemList } from "@/components";
 import { City } from "@/context/AppContext";
 import { useGetForecastWeather } from "@/hooks/weatherHooks";
 
@@ -24,11 +24,7 @@ import { useGetForecastWeather } from "@/hooks/weatherHooks";
  * - The component is styled using Tailwind CSS classes.
  */
 const ShowForecastWeather: React.FC<{ city: City }> = ({ city }) => {
-    const { forecastWeatherData, isLoadingForecastWeather } = useGetForecastWeather(city);
-
-    if (isLoadingForecastWeather) {
-        return <ShowForecastWeatherSkeleton />;
-    }
+    const { forecastWeatherData } = useGetForecastWeather(city);
 
     return (
         <div className="py-2 mx-8">

@@ -7,6 +7,7 @@
     "dev:pwa": "next dev --experimental-https --turbopack",
     "build": "next build",
     "start": "next start",
+    "analyze": "next analyze",
     "lint": "next lint",
     "test:jest": "jest",
     "test:vitest": "vitest",

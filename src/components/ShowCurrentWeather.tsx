@@ -3,7 +3,7 @@
 import { format } from "date-fns-jalali";
 import Image from "next/image";
 import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import { ShowCurrentWeatherSkeleton, UpdateWeatherButton, WeatherView } from "@/components";
+import { UpdateWeatherButton, WeatherView } from "@/components";
 import { City } from "@/context/AppContext";
 
 interface ShowCurrentWeatherProps {
@@ -33,13 +33,8 @@ interface ShowCurrentWeatherProps {
  * - The weather data is fetched from an external API and is displayed in a user-friendly format.
  * - The component is styled using Tailwind CSS classes.
  */
-
 const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
-    const { currentWeatherData, isLoadingCurrentWeather } = useGetCurrentWeather(city);
-
-    if (isLoadingCurrentWeather) {
-        return <ShowCurrentWeatherSkeleton />;
-    }
+    const { currentWeatherData } = useGetCurrentWeather(city);
 
     return (
         <WeatherView.Body className="pb-2">
