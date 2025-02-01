@@ -8,7 +8,7 @@ import Skeleton from "react-loading-skeleton";
  *
  * @returns A JSX element representing the skeleton of the ShowForecastWeather component.
  */
-const ShowForecastWeatherSkeleton = () => {
+const ShowForecastWeatherSkeleton : React.FC = () => {
     const skeletonKey = useId();
     return (
         <div className="py-2 mx-8">
