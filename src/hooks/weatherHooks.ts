@@ -1,93 +1,96 @@
-import { useEffect } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
+import { useSuspenseQueries } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+
 import { City, useAppContext } from "@/context/AppContext";
 import { getCurrentWeather, getForecastWeather } from "@/services/weather.services";
 import defaultCity from "@/data/default.json";
 
-let isFirstSuccess = false;
+//* Types
+type WeatherResponse = {
+    cod: number | string;
+};
 
-const handleError = (
-    error: any,
-    handleDeleteCity: (id: string) => void,
-    handleSetCurrentCity: (city: City) => void,
-    city: City
-) => {
-    toast.dismiss();
-    if (error?.response?.status === 404) {
-        toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
-        handleDeleteCity(city.id);
-        handleSetCurrentCity(defaultCity);
-        return getForecastWeather({ city: defaultCity.name });
-    }
-    else if(error?.code === "ERR_NETWORK"){
-        toast.error("لطفا دسترسی به اینترنت خود را بررسی کنید !");
-        return {};
+type QueryFunction = (params: { city: City["name"] }) => Promise<WeatherResponse>;
+
+//* Enums
+enum WeatherStatus {
+    HTTP_SUCCESS = 200,
+    HTTP_NOT_FOUND = 404,
+    NETWORK_ERROR_CODE = "ERR_NETWORK",
+}
+
+const handleWeatherQuery = async (options: {
+    city: City;
+    fetchFunction: QueryFunction;
+    onDelete: (id: string) => void;
+    onSetCurrent: (city: City) => void;
+}): Promise<any> => {
+    //* get arguments
+    const { city, fetchFunction, onDelete, onSetCurrent } = options;
+
+    try {
+        const response = await fetchFunction({ city: city.name });
+        if (response.cod == WeatherStatus.HTTP_SUCCESS) {
+            return response;
+        }
+        throw new Error("مشکلی در دریافت اطلاعات رخ داده است !");
+    } catch (error: any) {
+        if (error?.response?.status === WeatherStatus.HTTP_NOT_FOUND) {
+            toast.dismiss();
+            toast.error("این شهر توسط سرور پشتیبانی نمی شود !");
+            onDelete(city.id);
+            onSetCurrent(defaultCity);
+            return fetchFunction({ city: defaultCity.name });
+        } else if (error?.code === WeatherStatus.NETWORK_ERROR_CODE) {
+            throw new Error("لطفا دسترسی به اینترنت خود را بررسی کنید !");
+        }
+        throw new Error(error?.message);
     }
 };
 
-export const useGetCurrentWeather = (city: City) => {
-    const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
-    const {
-        data: currentWeatherData,
-        isLoading: isLoadingCurrentWeather,
-        refetch: updateCurrentWeather,
-    } = useSuspenseQuery({
-        queryKey: ["weather", "current-weather", city?.name],
-        queryFn: async () => {
-            try {
-                isFirstSuccess = false;
-                const response = await getCurrentWeather({ city: city.name });
-                if (response.cod == 200) {
-                    isFirstSuccess = true;
-                    return response;
-                }
-            } catch (error) {
-                handleError(error, handleDeleteCity, handleSetCurrentCity, city);
-            }
-        },
-    });
+export const useGetWeather = (city: City) => {
+    //* this ref for prevent unexpected toast show
+    const toastShowRef = useRef(false);
 
-    return {
-        currentWeatherData,
-        isLoadingCurrentWeather,
-        updateCurrentWeather,
-    };
-};
-
-export const useGetForecastWeather = (city: City) => {
     const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
-    const {
-        data: forecastWeatherData,
-        isLoading: isLoadingForecastWeather,
-        isFetching: isUpdatingForecastWeather,
-        isSuccess,
-        isRefetchError,
-        refetch: updateForecastWeather,
-    } = useSuspenseQuery({
-        queryKey: ["weather", "forecast-weather", city?.name],
-        queryFn: async () => {
-            try {
-                const response = await getForecastWeather({ city: city.name });
-                if (response.cod == 200) {
-                    return response;
-                }
-            } catch (error) {
-                handleError(error, handleDeleteCity, handleSetCurrentCity, city);
-            }
-        },
+    const queries = useSuspenseQueries({
+        queries: [
+            {
+                queryKey: ["weather", "current-weather", city?.name],
+                queryFn: handleWeatherQuery.bind(null, {
+                    city,
+                    fetchFunction: getCurrentWeather,
+                    onDelete: handleDeleteCity,
+                    onSetCurrent: handleSetCurrentCity,
+                }),
+            },
+            {
+                queryKey: ["weather", "forecast-weather", city?.name],
+                queryFn: handleWeatherQuery.bind(null, {
+                    city,
+                    fetchFunction: getForecastWeather,
+                    onDelete: handleDeleteCity,
+                    onSetCurrent: handleSetCurrentCity,
+                }),
+            },
+        ],
+        combine: (result) => ({
+            currentWeatherData: result[0].data,
+            forecastWeatherData: result[1].data,
+            isAllSuccess: result.every((query) => query.status === "success"),
+            isAllIdle: result.every((query) => {
+                toastShowRef.current = false;
+                return !query.isFetching;
+            }),
+        }),
     });
     useEffect(() => {
-        if (!isUpdatingForecastWeather && isSuccess && isFirstSuccess)
+        if (queries.isAllSuccess && queries.isAllIdle && !toastShowRef.current) {
             toast.success("با موفقیت بروزرسانی شد !");
-    }, [isSuccess, isUpdatingForecastWeather]);
-    useEffect(() => {
-        if (isRefetchError) toast.error("امکان بروزرسانی آب و هوا وجود ندارد !");
-    }, [isRefetchError]);
+            toastShowRef.current = true;
+        }
+    }, [queries.isAllIdle]);
 
-    return {
-        forecastWeatherData,
-        isLoadingForecastWeather,
-        updateForecastWeather,
-    };
+    return queries as any;
 };
