@@ -34,14 +34,15 @@ export default function SelectCity() {
     const router = useRouter();
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCityInputState(e.target.value.trim());
-        if (e.target.value === "") {
+        const inputValue = e.target.value;
+        setCityInputState(inputValue);
+        if (inputValue === "") {
             startTransitionShowCities(() => {
                 setShowCities([]);
             });
             return;
         }
-        const guessCities = iranCities.filter((city) => city.name.startsWith(cityInputState));
+        const guessCities = iranCities.filter((city) => city.name.startsWith(inputValue));
         startTransitionShowCities(() => {
             setShowCities(guessCities);
         });
