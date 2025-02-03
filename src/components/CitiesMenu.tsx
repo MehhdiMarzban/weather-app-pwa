@@ -75,7 +75,7 @@ const CitiesMenu: React.FC = () => {
             </div>
             <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content rounded-box w-40 bg-layer-0 left-2 text-slate-600 mt-3 p-2 shadow z-50 text-base">
+                className="menu menu-sm dropdown-content rounded-box w-40 bg-layer-0 left-2 text-color-dark mt-3 p-2 shadow z-50 text-base">
                 <li>
                     <summary>فعلی : {currentCity?.name}</summary>
                     <ul className="p-2">

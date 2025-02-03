@@ -29,7 +29,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
         <WeatherView.Body className="pb-2">
             <WeatherView.Column className="md:col-span-4 space-y-0">
                 <div className="flex flex-row w-full justify-between items-center">
-                    <div className="stat-value text-slate-600 truncate">
+                    <div className="stat-value text-color-dark truncate">
                         {data?.name}
                     </div>
                     <UpdateWeatherButton />
@@ -71,7 +71,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
             <WeatherView.Column className="md:col-span-3">
                 <WeatherView.HeadItem title="باد">
                     <svg
-                        className="text-slate-600"
+                        className="text-color-dark"
                         stroke="currentColor"
                         fill="currentColor"
                         strokeWidth="0"
@@ -109,7 +109,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
             <WeatherView.Column className="md:col-span-3">
                 <WeatherView.HeadItem title="آب و هوا">
                     <svg
-                        className="text-slate-600"
+                        className="text-color-dark"
                         stroke="currentColor"
                         fill="currentColor"
                         strokeWidth="0"

@@ -15,7 +15,7 @@ const CitySelectionList: React.FC = () => {
     if (isLoading) return <MiniLoading />;
     return (
         <>
-            <h6 className="text-sm text-base-content mt-3 font-bold">شهر های انتخاب شده :</h6>
+            <h6 className="text-sm text-color-dark mt-3 font-bold">شهر های انتخاب شده :</h6>
             <div className="flex flex-row gap-2 flex-wrap">
                 {selectedCities.length > 0 ? (
                     selectedCities.map((city) => (

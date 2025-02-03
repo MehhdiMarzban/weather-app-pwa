@@ -65,6 +65,10 @@
     .bg-layer-3 {
         @apply bg-gray-300;
     }
+
+    .text-color-dark{
+        @apply text-slate-600;
+    }
 }
 
 /* :root {
