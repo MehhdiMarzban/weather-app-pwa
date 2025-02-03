@@ -1,13 +1,8 @@
+import { FC, ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface WeatherViewProps extends React.FC<React.ComponentProps<"div">> {
-    Body: React.FC<React.ComponentProps<"div">>;
-    Column: React.FC<React.ComponentProps<"div">>;
-    SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps>;
-    HeadItem: React.FC<React.ComponentProps<"div"> & HeadItemProps>;
-    ForecastItem: React.FC<React.ComponentProps<"div">>;
-    Divider: React.FC;
-}
+//?------------------------ Type Definitions ------------------------
+type DivElementProps = ComponentProps<"div">;
 
 interface HeadItemProps {
     title: string;
@@ -19,17 +14,52 @@ interface SubItemProps {
     signRight?: string;
 }
 
+interface WeatherViewProps extends FC<DivElementProps> {
+    Body: FC<DivElementProps>;
+    Column: FC<DivElementProps>;
+    SubItem: FC<DivElementProps & SubItemProps>;
+    HeadItem: FC<DivElementProps & HeadItemProps>;
+    ForecastItem: FC<DivElementProps>;
+    Divider: FC;
+}
+
+//?------------------------ Utility Components ------------------------
+
+/**
+ * WeatherView component serves as a container for weather-related UI elements.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
+ * @param {string} [props.className] - Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ * 
+ * @returns {JSX.Element} A styled container for organizing weather-related components.
+ */
 const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
     return (
         <div
-            className={twMerge("md:card md:glass md:bg-white md:bg-opacity-20 md:shadow-lg w-full", className)}
+            className={twMerge(
+                "md:card md:glass md:bg-white md:bg-opacity-20 md:shadow-lg w-full",
+                className
+            )}
             {...rest}>
             {children}
         </div>
     );
 };
 
-const Body: React.FC<React.ComponentProps<"div">> = ({ children, className, ...rest }) => {
+
+/**
+ * Body component serves as a container for the content of the WeatherView component.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
+ * @param {string} [props.className] - Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ * 
+ * @returns {JSX.Element} A styled container for the content of the WeatherView component.
+ */
+const Body: WeatherViewProps["Body"] = ({ children, className, ...rest }) => {
     return (
         <div className={twMerge("card-body grid md:grid-cols-12 grid-cols-1", className)} {...rest}>
             {children}
@@ -37,7 +67,18 @@ const Body: React.FC<React.ComponentProps<"div">> = ({ children, className, ...r
     );
 };
 
-const Column: React.FC<React.ComponentProps<"div">> = ({ children, className, ...rest }) => {
+
+/**
+ * Column component serves as a container for organizing elements in a column layout.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
+ * @param {string} [props.className] - Change the default size of the column by add col-span-[number] to the className. Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ * 
+ * @returns {JSX.Element} A styled container for organizing elements in a column layout.
+ */
+const Column: WeatherViewProps["Column"] = ({ children, className, ...rest }) => {
     return (
         <div
             className={twMerge(
@@ -50,7 +91,19 @@ const Column: React.FC<React.ComponentProps<"div">> = ({ children, className, ..
     );
 };
 
-const HeadItem: React.FC<React.ComponentProps<"div"> & HeadItemProps> = ({
+
+/**
+ * HeadItem component serves as a container for the title and value of a weather metric.
+ *
+ * @param {Object} props - The properties object.
+ * @param {React.ReactNode} props.children - The value of the weather metric.
+ * @param {string} props.title - The title of the weather metric.
+ * @param {string} [props.className] - Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ * 
+ * @returns {JSX.Element} A styled container for the title and value of a weather metric.
+ */
+const HeadItem: WeatherViewProps["HeadItem"] = ({
     children,
     className,
     title,
@@ -66,7 +119,21 @@ const HeadItem: React.FC<React.ComponentProps<"div"> & HeadItemProps> = ({
     );
 };
 
-const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
+
+/**
+ * SubItem component serves as a container for a subtitle and value of a weather metric.
+ *
+ * @param {Object} props - The properties object.
+ * @param {string} [props.title] - The subtitle of the weather metric.
+ * @param {string} props.value - The value of the weather metric.
+ * @param {string} [props.signRight] - The right-side sign for the value.
+ * @param {string} [props.signLeft] - The left-side sign for the value.
+ * @param {string} [props.className] - Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ * 
+ * @returns {JSX.Element} A styled container for the subtitle and value of a weather metric.
+ */
+const SubItem: WeatherViewProps["SubItem"] = ({
     title = null,
     value,
     signRight = null,
@@ -98,14 +165,35 @@ const SubItem: React.FC<React.ComponentProps<"div"> & SubItemProps> = ({
     );
 };
 
-const ForecastItem: React.FC<React.ComponentProps<"div">> = ({children, className,...rest}) => {
+
+/**
+ * ForecastItem component serves as a container for each forecast item in the forecast list.
+ *
+ * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
+ * @param {string} [props.className] - Additional classes to style the component.
+ * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
+ *
+ * @returns {JSX.Element} A styled container for each forecast item in the forecast list.
+ */
+const ForecastItem: WeatherViewProps["ForecastItem"] = ({ children, className, ...rest }) => {
     return (
-        <div className={twMerge("flex-none mx-auto border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md", className)} {...rest} >
+        <div
+            className={twMerge(
+                "flex-none mx-auto border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md",
+                className
+            )}
+            {...rest}>
             {children}
         </div>
     );
 };
 
+
+/**
+ * Divider component serves as a visual separator between sections of content that manage automatically to be vertical or horizontal.
+ *
+ * @returns {JSX.Element} A JSX element representing a styled divider.
+ */
 const Divider: React.FC = () => {
     return (
         <div className="divider divider-vertical md:divider-horizontal col-span-1 md:col-span-1" />

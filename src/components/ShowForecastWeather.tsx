@@ -5,21 +5,15 @@ interface ShowForecastWeatherProps {
     data: any;
 }
 
+
+
 /**
- * ShowForecastWeather component displays the forecast weather data for the given city.
+ * A component that displays the forecast weather data as a swiper.
  *
- * Props:
- * - data: The forecast weather data for the given city.
+ * @prop {Object} data - The forecast weather data returned from the API.
+ * @prop {Array} data.list - The list of forecast weather data.
  *
- * Returns:
- * - A JSX element representing the forecast weather data.
- *
- * Components:
- * - Utilizes the ForecastItemList component to display the forecast weather data.
- *
- * Note:
- * - The weather data is fetched from an external API and is displayed in a user-friendly format.
- * - The component is styled using Tailwind CSS classes.
+ * @returns {JSX.Element} A JSX element representing a swiper of forecast weather data.
  */
 const ShowForecastWeather: React.FC<ShowForecastWeatherProps> = ({ data }) => {
 

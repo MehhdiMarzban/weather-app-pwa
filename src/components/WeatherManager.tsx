@@ -1,14 +1,21 @@
 "use client";
 
-import {
-    ShowCurrentWeather,
-    ShowForecastWeather,
-    WeatherView,
-} from "@/components";
+import { ShowCurrentWeather, ShowForecastWeather, WeatherView } from "@/components";
 import { useGetWeather } from "@/hooks/weatherHooks";
 import { City } from "@/context/AppContext";
 
-const WeatherManager: React.FC<{ city: City }> = ({ city }) => {
+interface WeatherManagerProps {
+    city: City;
+}
+
+/**
+ * A component that displays the current weather data and forecast weather data as a swiper.
+ *
+ * @prop {Object} city - The city to get the weather data for.
+ *
+ * @returns {JSX.Element} A JSX element representing a swiper of current and forecast weather data.
+ */
+const WeatherManager: React.FC<WeatherManagerProps> = ({ city }) => {
     const { currentWeatherData, forecastWeatherData } = useGetWeather(city);
 
     return (

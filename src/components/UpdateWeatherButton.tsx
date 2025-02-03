@@ -1,5 +1,17 @@
 "use client";
+
 import { useIsFetching, useQueryClient } from "@tanstack/react-query";
+
+/**
+ * UpdateWeatherButton component triggers a refetch of weather data queries when clicked.
+ * 
+ * This component uses React Query's `useQueryClient` to access the query client and
+ * `useIsFetching` to determine if any weather data queries are currently fetching.
+ * 
+ * The button displays a spinning animation on the SVG icon when data is being fetched.
+ *
+ * @returns {JSX.Element} A button element that initiates a refetch of weather data queries.
+ */
 
 const UpdateWeatherButton: React.FC = () => {
     const queryClient = useQueryClient();

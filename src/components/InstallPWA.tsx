@@ -2,6 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+
+
+/**
+ * A component that shows an install button when the beforeinstallprompt event is triggered
+ *
+ * The component listens for the beforeinstallprompt event and shows a button to install the app when the event is triggered.
+ * When the button is clicked, it prompts the user to install the app.
+ * If the user accepts the prompt, the userChoice property of the event will be "accepted", otherwise it will be "dismissed".
+ *
+ * The component also removes the event listener when it is unmounted.
+ */
 const InstallPWA: React.FC = () => {
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
     const [showInstallButton, setShowInstallButton] = useState(false);

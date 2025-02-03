@@ -31,9 +31,21 @@ const settings = {
     },
 } satisfies SwiperProps;
 
+
 interface ForecastItemListProps {
     forecastWeatherData: { list: Array<any> };
 }
+
+
+/**
+ * A component that renders a list of forecast weather data as a swiper.
+ *
+ * @prop {Object} forecastWeatherData - The forecast weather data returned from the API.
+ * @prop {Array} forecastWeatherData.list - The list of forecast weather data.
+ *
+ * @returns {JSX.Element} A JSX element representing a swiper of forecast weather data.
+ */
+
 const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData }) => {
     let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
         if (index % 8 === 0) {

@@ -10,11 +10,18 @@ interface ShowCurrentWeatherProps {
 }
 
 /**
- * A component that shows the current weather of a city.
- * 
- * @param {{data: any}} props - The props of the component.
- * @prop {any} data - The current weather data of a city.
- * @returns {JSX.Element} A JSX element representing the current weather of a city.
+ * A component that displays the current weather data for the given city.
+ *
+ * @prop {Object} data - The current weather data returned from the API.
+ *
+ * @returns {JSX.Element} A JSX element representing the current weather data.
+ *
+ * Components:
+ * - Utilizes the WeatherView component to display the current weather data.
+ *
+ * Note:
+ * - The weather data is fetched from an external API and is displayed in a user-friendly format.
+ * - The component is styled using Tailwind CSS classes.
  */
 const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
 

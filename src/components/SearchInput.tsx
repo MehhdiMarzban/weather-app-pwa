@@ -6,6 +6,19 @@ interface SearchInputProps extends React.ComponentProps<"label"> {
     placeholder?: string;
 }
 
+/**
+ * SearchInput is a component that renders a text input with an optional placeholder
+ * and an icon. It allows users to enter text and triggers a callback on input change.
+ *
+ * @param {SearchInputProps} props - The props for the SearchInput component.
+ * @param {string} props.inputState - The current value of the text input.
+ * @param {(e: React.ChangeEvent<HTMLInputElement>) => void} props.handleChangeInput - 
+ * The function called when the input value changes.
+ * @param {string} [props.placeholder] - An optional placeholder text for the input field.
+ * @param {string} [props.className] - Additional CSS classes for the label element.
+ * @returns {JSX.Element} A JSX element representing the search input field.
+ */
+
 const SearchInput: React.FC<SearchInputProps> = ({
     handleChangeInput,
     inputState,
