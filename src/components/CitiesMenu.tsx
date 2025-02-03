@@ -82,7 +82,7 @@ const CitiesMenu: React.FC = () => {
                         {cityList?.map((city) => (
                             <li key={city.id}>
                                 <button
-                                    className="font-bold text-lg"
+                                    className="font-bold text-base"
                                     onClick={() => {
                                         handleSetCurrentCity(city);
                                     }}>
@@ -91,7 +91,7 @@ const CitiesMenu: React.FC = () => {
                             </li>
                         ))}
                     </ul>
-                    <Link className="text-lg font-semibold" href="/add-city">
+                    <Link className="text-base font-semibold" href="/add-city">
                         افزودن شهر
                     </Link>
                 </li>
