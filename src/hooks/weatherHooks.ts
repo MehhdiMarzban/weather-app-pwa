@@ -87,6 +87,7 @@ export const useGetWeather = (city: City) => {
     });
     useEffect(() => {
         if (queries.isAllSuccess && queries.isAllIdle && !toastShowRef.current) {
+            toast.dismiss();
             toast.success("با موفقیت بروزرسانی شد !");
             toastShowRef.current = true;
         }
