@@ -13,7 +13,7 @@ import { CitiesMenu } from "@/components";
  */
 const Header: React.FC = () => {
     return (
-        <div className="navbar bg-primary sticky top-0">
+        <div className="navbar bg-primary sticky top-0 z-50">
             <div className="container xl:max-w-screen-xl text-white">
                 <div className="flex flex-row items-center flex-1">
                     <Link href="/" className="btn btn-ghost text-base md:text-xl">
