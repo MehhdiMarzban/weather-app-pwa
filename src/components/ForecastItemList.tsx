@@ -50,7 +50,7 @@ const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData
     let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
         if (index % 8 === 0) {
             acc.push(
-                <SwiperSlide key={item?.dt_txt}>
+                <SwiperSlide className="py-2" key={item?.dt_txt}>
                     <ForecastItem forecastData={item} />
                 </SwiperSlide>
             );
