@@ -14,7 +14,7 @@ const CityList: React.FC<{ cities: City[]; handleClickOnCityList: (city: City) =
 }) => {
     if (cities.length === 0) return null;
     return (
-        <ul className="menu bg-base-300 glass rounded-box max-h-64 overflow-y-scroll overflow-x-hidden">
+        <ul className="menu bg-layer-0 glass rounded-box max-h-64 overflow-y-scroll overflow-x-hidden">
             <li>
                 <h2 className="menu-title">شهر مورد نظر خود را انتخاب کنید :</h2>
                 <ul>

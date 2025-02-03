@@ -52,6 +52,19 @@
         position: relative;
         z-index: 1; /* قرار دادن محتوای هدر بالای بلور */
     }
+
+    .bg-layer-0 {
+        @apply bg-gray-50;
+    }
+    .bg-layer-1 {
+        @apply bg-gray-100;
+    }
+    .bg-layer-2 {
+        @apply bg-gray-200;
+    }
+    .bg-layer-3 {
+        @apply bg-gray-300;
+    }
 }
 
 /* :root {

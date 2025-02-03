@@ -58,7 +58,7 @@ export default function SelectCity() {
 
     return (
         <div className="flex flex-col gap-2 items-center justify-start">
-            <div className="card glass w-full sm:w-3/5 xl:w-2/5">
+            <div className="card bg-layer-1 md:bg-transparent glass w-full sm:w-3/5 xl:w-2/5">
                 <div className="card-body flex justify-center">
                     <h2 className="card-title">شهر خودت رو انتخاب کن :</h2>
                     <SearchInput

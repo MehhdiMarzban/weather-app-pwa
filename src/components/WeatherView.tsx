@@ -32,7 +32,7 @@ interface WeatherViewProps extends FC<DivElementProps> {
  * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
  * @param {string} [props.className] - Additional classes to style the component.
  * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
- * 
+ *
  * @returns {JSX.Element} A styled container for organizing weather-related components.
  */
 const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
@@ -48,7 +48,6 @@ const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
     );
 };
 
-
 /**
  * Body component serves as a container for the content of the WeatherView component.
  *
@@ -56,7 +55,7 @@ const WeatherView: WeatherViewProps = ({ children, className, ...rest }) => {
  * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
  * @param {string} [props.className] - Additional classes to style the component.
  * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
- * 
+ *
  * @returns {JSX.Element} A styled container for the content of the WeatherView component.
  */
 const Body: WeatherViewProps["Body"] = ({ children, className, ...rest }) => {
@@ -67,7 +66,6 @@ const Body: WeatherViewProps["Body"] = ({ children, className, ...rest }) => {
     );
 };
 
-
 /**
  * Column component serves as a container for organizing elements in a column layout.
  *
@@ -75,7 +73,7 @@ const Body: WeatherViewProps["Body"] = ({ children, className, ...rest }) => {
  * @param {React.ReactNode} props.children - The child elements to be rendered inside the container.
  * @param {string} [props.className] - Change the default size of the column by add col-span-[number] to the className. Additional classes to style the component.
  * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
- * 
+ *
  * @returns {JSX.Element} A styled container for organizing elements in a column layout.
  */
 const Column: WeatherViewProps["Column"] = ({ children, className, ...rest }) => {
@@ -91,7 +89,6 @@ const Column: WeatherViewProps["Column"] = ({ children, className, ...rest }) =>
     );
 };
 
-
 /**
  * HeadItem component serves as a container for the title and value of a weather metric.
  *
@@ -100,15 +97,10 @@ const Column: WeatherViewProps["Column"] = ({ children, className, ...rest }) =>
  * @param {string} props.title - The title of the weather metric.
  * @param {string} [props.className] - Additional classes to style the component.
  * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
- * 
+ *
  * @returns {JSX.Element} A styled container for the title and value of a weather metric.
  */
-const HeadItem: WeatherViewProps["HeadItem"] = ({
-    children,
-    className,
-    title,
-    ...rest
-}) => {
+const HeadItem: WeatherViewProps["HeadItem"] = ({ children, className, title, ...rest }) => {
     return (
         <div
             className={twMerge("flex flex-row w-full items-center justify-between", className)}
@@ -118,7 +110,6 @@ const HeadItem: WeatherViewProps["HeadItem"] = ({
         </div>
     );
 };
-
 
 /**
  * SubItem component serves as a container for a subtitle and value of a weather metric.
@@ -130,7 +121,7 @@ const HeadItem: WeatherViewProps["HeadItem"] = ({
  * @param {string} [props.signLeft] - The left-side sign for the value.
  * @param {string} [props.className] - Additional classes to style the component.
  * @param {Object} [props.rest] - Additional Div Element properties to be passed to the component.
- * 
+ *
  * @returns {JSX.Element} A styled container for the subtitle and value of a weather metric.
  */
 const SubItem: WeatherViewProps["SubItem"] = ({
@@ -165,7 +156,6 @@ const SubItem: WeatherViewProps["SubItem"] = ({
     );
 };
 
-
 /**
  * ForecastItem component serves as a container for each forecast item in the forecast list.
  *
@@ -179,7 +169,7 @@ const ForecastItem: WeatherViewProps["ForecastItem"] = ({ children, className, .
     return (
         <div
             className={twMerge(
-                "flex-none mx-auto border border-gray-300 md:border-none w-44 bg-slate-100 bg-opacity-30 rounded-md p-2 shadow-md",
+                "flex-none mx-auto border border-gray-300 md:border-none w-44 bg-layer-0 bg-opacity-10 md:bg-layer-1 md:bg-opacity-30 rounded-md p-2 shadow-md",
                 className
             )}
             {...rest}>
@@ -187,7 +177,6 @@ const ForecastItem: WeatherViewProps["ForecastItem"] = ({ children, className, .
         </div>
     );
 };
-
 
 /**
  * Divider component serves as a visual separator between sections of content that manage automatically to be vertical or horizontal.
