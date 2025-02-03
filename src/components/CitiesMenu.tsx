@@ -75,19 +75,20 @@ const CitiesMenu: React.FC = () => {
             </div>
             <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content rounded-box w-40 bg-base-100 left-2 text-slate-600 mt-3 p-2 shadow z-50 text-base">
+                className="menu menu-sm dropdown-content rounded-box w-40 bg-layer-0 left-2 text-slate-600 mt-3 p-2 shadow z-50 text-base">
                 <li>
                     <summary>فعلی : {currentCity?.name}</summary>
                     <ul className="p-2">
                         {cityList?.map((city) => (
                             <li key={city.id}>
-                                <button
+                                <Link
+                                    href="/"
                                     className="font-bold text-base"
                                     onClick={() => {
                                         handleSetCurrentCity(city);
                                     }}>
                                     {city.name}
-                                </button>
+                                </Link>
                             </li>
                         ))}
                     </ul>
