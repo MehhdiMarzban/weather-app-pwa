@@ -1,8 +1,18 @@
 import Image from "next/image";
 import { format } from "date-fns-jalali";
-import WeatherView from "./WeatherView";
 
-const ForecastItem: React.FC<{ forecastData: any }> = ({ forecastData }) => {
+import WeatherView from "./WeatherView";
+import { ForecastItemProps } from "@/types";
+
+/**
+ * A component that displays a forecast item in the forecast list.
+ *
+ * @param {ForecastItemProps} props - The props of the component.
+ * @prop {any} forecastData - The forecast data of the item.
+ *
+ * @returns {JSX.Element} A JSX element representing the forecast item.
+ */
+const ForecastItem: React.FC<ForecastItemProps> = ({ forecastData }) => {
     return (
         <WeatherView.ForecastItem>
             <WeatherView.SubItem

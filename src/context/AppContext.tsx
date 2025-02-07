@@ -1,28 +1,16 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, use, useEffect, useState } from "react";
+
 import { safeLocalStorage } from "@/utils/safeLocalStorage";
 import defaultCity from "@/data/default.json";
+import { AppContext as AppContextType, City } from "@/types";
 
-export interface City {
-    id: string;
-    name: string;
-}
-
-export interface AppContext {
-    cities: City[];
-    currentCity: City | null;
-    isLoading: boolean;
-    handleAddCity: (city: City) => void;
-    handleDeleteCity: (id: City["id"]) => void;
-    handleSetCurrentCity: (city: City) => void;
-}
-
-export const AppContext = createContext<Partial<AppContext>>({});
+export const AppContext = createContext<Partial<AppContextType>>({});
 
 const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const [cities, setCities] = useState<City[]>([]);
-    const [currentCity, setCurrentCity] = useState<AppContext["currentCity"]>(null);
+    const [currentCity, setCurrentCity] = useState<AppContextType["currentCity"]>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const queryClient = useQueryClient();
 
@@ -30,8 +18,8 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
         setIsLoading(true);
         const citiesLocalStorage = safeLocalStorage<City[]>("cities", []);
         setCities(citiesLocalStorage.get());
-        const currentCityLocalStorage = safeLocalStorage<AppContext["currentCity"]>(
-            "currnetCity",
+        const currentCityLocalStorage = safeLocalStorage<AppContextType["currentCity"]>(
+            "currentCity",
             defaultCity
         );
         setCurrentCity(currentCityLocalStorage.get());
@@ -59,7 +47,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     };
 
     const handleSetCurrentCity = (city: City) => {
-        const appLocalStorage = safeLocalStorage<AppContext["currentCity"]>("currnetCity", defaultCity);
+        const appLocalStorage = safeLocalStorage<AppContextType["currentCity"]>("currentCity", defaultCity);
         appLocalStorage.set(city);
         setCurrentCity(city);
     };
@@ -92,5 +80,5 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 export default AppProvider;
 
 export const useAppContext = () => {
-    return use(AppContext) as AppContext;
+    return use(AppContext) as AppContextType;
 };
