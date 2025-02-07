@@ -1,9 +1,5 @@
-import { AppContext, City } from "@/context/AppContext";
+import { CityBadgeProps } from "@/types";
 
-interface CityBadgeProps {
-    city: City;
-    handleDeleteCity: AppContext["handleDeleteCity"];
-}
 /**
  * CityBadge component displays a badge with the city name and a delete button.
  * 
@@ -13,7 +9,6 @@ interface CityBadgeProps {
  * 
  * @returns {JSX.Element} A JSX element representing a city badge.
  */
-
 const CityBadge: React.FC<CityBadgeProps> = ({ city, handleDeleteCity }) => {
     return (
         <div className="badge badge-primary gap-2 py-3 px-2 select-none">

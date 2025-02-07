@@ -1,11 +1,8 @@
 import Image from "next/image";
 import { format } from "date-fns-jalali";
+
 import WeatherView from "./WeatherView";
-
-interface ForecastItemProps {
-    forecastData: any;
-}
-
+import { ForecastItemProps } from "@/types";
 
 /**
  * A component that displays a forecast item in the forecast list.

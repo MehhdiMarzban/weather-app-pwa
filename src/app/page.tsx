@@ -2,8 +2,9 @@
 import dynamic from "next/dynamic";
 
 import { InstallPWA, MiniLoading, WeatherManagerSkeleton } from "@/components";
-import { City, useAppContext } from "@/context/AppContext";
+import { useAppContext } from "@/context/AppContext";
 import { useRegisterPWA } from "@/hooks/pwa";
+import { City } from "@/types";
 
 const WeatherManager = dynamic(() => import("@/components").then((mod) => mod.WeatherManager), {
     loading: () => <WeatherManagerSkeleton />,

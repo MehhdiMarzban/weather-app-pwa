@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import iranCities from "@/data/city.json";
 import { CityList, MiniLoading, SearchInput, CitySelectionList } from "@/components";
-import { City, useAppContext } from "@/context/AppContext";
-import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
+import { City } from "@/types";
 
 /**
  * SelectCity component allows users to input a city name and select from a list of suggested cities.

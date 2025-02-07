@@ -2,16 +2,15 @@ import { useEffect, useRef } from "react";
 import { useSuspenseQueries } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { City, useAppContext } from "@/context/AppContext";
+import { useAppContext } from "@/context/AppContext";
 import { getCurrentWeather, getForecastWeather } from "@/services/weather.services";
 import defaultCity from "@/data/default.json";
-
-//* Types
-type WeatherResponse = {
-    cod: number | string;
-};
-
-type QueryFunction = (params: { city: City["name"] }) => Promise<WeatherResponse>;
+import {
+    City,
+    CurrentWeatherResponse,
+    ForecastWeatherResponse,
+    HandleWeatherQueryParams,
+} from "@/types";
 
 //* Enums
 enum WeatherStatus {
@@ -20,12 +19,9 @@ enum WeatherStatus {
     NETWORK_ERROR_CODE = "ERR_NETWORK",
 }
 
-const handleWeatherQuery = async (options: {
-    city: City;
-    fetchFunction: QueryFunction;
-    onDelete: (id: string) => void;
-    onSetCurrent: (city: City) => void;
-}): Promise<any> => {
+const handleWeatherQuery = async (
+    options: HandleWeatherQueryParams
+): Promise<CurrentWeatherResponse | ForecastWeatherResponse | never> => {
     //* get arguments
     const { city, fetchFunction, onDelete, onSetCurrent } = options;
 
@@ -76,8 +72,8 @@ export const useGetWeather = (city: City) => {
             },
         ],
         combine: (result) => ({
-            currentWeatherData: result[0].data,
-            forecastWeatherData: result[1].data,
+            currentWeatherData: result[0].data as CurrentWeatherResponse,
+            forecastWeatherData: result[1].data as ForecastWeatherResponse,
             isAllSuccess: result.every((query) => query.status === "success"),
             isAllIdle: result.every((query) => {
                 toastShowRef.current = false;
@@ -93,5 +89,5 @@ export const useGetWeather = (city: City) => {
         }
     }, [queries.isAllIdle]);
 
-    return queries as any;
+    return queries;
 };

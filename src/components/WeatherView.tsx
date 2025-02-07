@@ -1,27 +1,5 @@
-import { FC, ComponentProps } from "react";
+import { WeatherViewProps } from "@/types";
 import { twMerge } from "tailwind-merge";
-
-//?------------------------ Type Definitions ------------------------
-type DivElementProps = ComponentProps<"div">;
-
-interface HeadItemProps {
-    title: string;
-}
-interface SubItemProps {
-    title?: string;
-    value: string;
-    signLeft?: string;
-    signRight?: string;
-}
-
-interface WeatherViewProps extends FC<DivElementProps> {
-    Body: FC<DivElementProps>;
-    Column: FC<DivElementProps>;
-    SubItem: FC<DivElementProps & SubItemProps>;
-    HeadItem: FC<DivElementProps & HeadItemProps>;
-    ForecastItem: FC<DivElementProps>;
-    Divider: FC;
-}
 
 //?------------------------ Utility Components ------------------------
 

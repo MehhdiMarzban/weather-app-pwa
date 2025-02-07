@@ -4,10 +4,7 @@ import Image from "next/image";
 import { format } from "date-fns-jalali";
 
 import { UpdateWeatherButton, WeatherView } from "@/components";
-
-interface ShowCurrentWeatherProps {
-    data: any;
-}
+import { ShowCurrentWeatherProps } from "@/types";
 
 /**
  * A component that displays the current weather data for the given city.
@@ -87,20 +84,20 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
                     className="text-[1.80rem]"
                     title="سرعت باد"
                     signRight="KM / H"
-                    value={data?.wind?.speed}
+                    value={data?.wind?.speed.toString()}
                 />
                 <WeatherView.SubItem title="درجه باد" value={data?.wind?.deg + "°"} />
                 <WeatherView.SubItem
                     className="text-[1.75rem]"
                     title="ارتفاع از دریا"
                     signRight="M"
-                    value={data?.main?.sea_level}
+                    value={data?.main?.sea_level.toString()}
                 />
                 <WeatherView.SubItem
                     className="text-[1.75rem]"
                     title="عمق دید"
                     signRight="M"
-                    value={data?.visibility}
+                    value={data?.visibility.toString()}
                 />
             </WeatherView.Column>
 
@@ -125,12 +122,12 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
                 <WeatherView.SubItem
                     title="احتمال بارش"
                     signRight="%"
-                    value={data?.clouds?.all}
+                    value={data?.clouds?.all.toString()}
                 />
                 <WeatherView.SubItem
                     title="رطوبت"
                     signRight="%"
-                    value={data?.main?.humidity}
+                    value={data?.main?.humidity.toString()}
                 />
                 <WeatherView.SubItem
                     title="دما"

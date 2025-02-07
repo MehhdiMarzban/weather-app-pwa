@@ -2,11 +2,7 @@
 
 import { ShowCurrentWeather, ShowForecastWeather, WeatherView } from "@/components";
 import { useGetWeather } from "@/hooks/weatherHooks";
-import { City } from "@/context/AppContext";
-
-interface WeatherManagerProps {
-    city: City;
-}
+import { WeatherManagerProps } from "@/types";
 
 /**
  * A component that displays the current weather data and forecast weather data as a swiper.

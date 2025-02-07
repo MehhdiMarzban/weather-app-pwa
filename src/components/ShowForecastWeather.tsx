@@ -1,11 +1,6 @@
 "use client";
 import { ForecastItemList } from "@/components";
-
-interface ShowForecastWeatherProps {
-    data: any;
-}
-
-
+import { ShowForecastWeatherProps } from "@/types";
 
 /**
  * A component that displays the forecast weather data as a swiper.

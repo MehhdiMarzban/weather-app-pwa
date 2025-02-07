@@ -1,10 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-interface SearchInputProps extends React.ComponentProps<"label"> {
-    inputState: string;
-    handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    placeholder?: string;
-}
+import { SearchInputProps } from "@/types";
 
 /**
  * SearchInput is a component that renders a text input with an optional placeholder
@@ -18,7 +14,6 @@ interface SearchInputProps extends React.ComponentProps<"label"> {
  * @param {string} [props.className] - Additional CSS classes for the label element.
  * @returns {JSX.Element} A JSX element representing the search input field.
  */
-
 const SearchInput: React.FC<SearchInputProps> = ({
     handleChangeInput,
     inputState,

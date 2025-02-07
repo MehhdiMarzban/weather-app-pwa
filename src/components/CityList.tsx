@@ -1,4 +1,4 @@
-import { City } from "@/context/AppContext";
+import { CityListProps } from "@/types";
 
 /**
  * CityList component renders a list of cities and calls the given handleClickOnCityList function when a city is clicked.
@@ -8,7 +8,7 @@ import { City } from "@/context/AppContext";
  * @param {(city: City) => void} props.handleClickOnCityList - The function to be called when a city is clicked.
  * @returns {JSX.Element} A JSX element representing a list of cities.
  */
-const CityList: React.FC<{ cities: City[]; handleClickOnCityList: (city: City) => void }> = ({
+const CityList: React.FC<CityListProps> = ({
     cities,
     handleClickOnCityList,
 }) => {
