@@ -13,7 +13,7 @@ const ShowForecastWeatherSkeleton : React.FC = () => {
     return (
         <div className="py-2 mx-8">
             {/* اسکلتون عنوان */}
-            <Skeleton width={150} height={24} className="mb-3" containerClassName="block" />
+            <Skeleton width={150} height={30} className="mb-3" containerClassName="block" />
 
             {/* اسکلتون اسلایدر */}
             <div className="relative">
@@ -27,8 +27,8 @@ const ShowForecastWeatherSkeleton : React.FC = () => {
                                     className="rounded-xl"
                                     containerClassName="block"
                                 />
-                                <Skeleton height={24} className="mt-2" />
-                                <Skeleton height={16} className="mt-1" />
+                                <Skeleton height={35} className="mt-2" />
+                                <Skeleton height={30} className="mt-1" />
                             </div>
                         ))}
                 </div>
