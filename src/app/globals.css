@@ -4,6 +4,16 @@
 
 @layer components {
 
+    * {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
     .swiper-btn {
         @apply btn btn-primary btn-sm p-0 absolute top-1/2 z-10 -translate-y-1/2 animate-none;
     }
@@ -41,6 +51,23 @@
     .bgblur > * {
         position: relative;
         z-index: 1; /* قرار دادن محتوای هدر بالای بلور */
+    }
+
+    .bg-layer-0 {
+        @apply bg-gray-50;
+    }
+    .bg-layer-1 {
+        @apply bg-gray-100;
+    }
+    .bg-layer-2 {
+        @apply bg-gray-200;
+    }
+    .bg-layer-3 {
+        @apply bg-gray-300;
+    }
+
+    .text-color-dark{
+        @apply text-slate-600;
     }
 }
 

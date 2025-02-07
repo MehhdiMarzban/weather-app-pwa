@@ -1,3 +1,11 @@
+/**
+ * A component that renders two buttons for navigating the swiper.
+ * The first button navigates to the previous slide and the second button navigates to the next slide.
+ * To add Buttons in Swiper should use this two classes:
+ *    - prevEL: .swiper-btn-prev
+ *    - nextEl: .swiper-btn-next
+ * @returns {JSX.Element} Two buttons for navigating the swiper.
+ */
 const SwiperButtons: React.FC = () => {
     return (
         <>

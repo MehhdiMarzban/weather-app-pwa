@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import iranCities from "@/data/city.json";
 import { CityList, MiniLoading, SearchInput, CitySelectionList } from "@/components";
-import { City, useAppContext } from "@/context/AppContext";
-import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
+import { City } from "@/types";
 
 /**
  * SelectCity component allows users to input a city name and select from a list of suggested cities.
@@ -34,14 +36,15 @@ export default function SelectCity() {
     const router = useRouter();
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCityInputState(e.target.value.trim());
-        if (e.target.value === "") {
+        const inputValue = e.target.value;
+        setCityInputState(inputValue);
+        if (inputValue === "") {
             startTransitionShowCities(() => {
                 setShowCities([]);
             });
             return;
         }
-        const guessCities = iranCities.filter((city) => city.name.startsWith(cityInputState));
+        const guessCities = iranCities.filter((city) => city.name.startsWith(inputValue));
         startTransitionShowCities(() => {
             setShowCities(guessCities);
         });
@@ -57,9 +60,9 @@ export default function SelectCity() {
 
     return (
         <div className="flex flex-col gap-2 items-center justify-start">
-            <div className="card glass w-full sm:w-3/5 xl:w-2/5">
+            <div className="card bg-layer-1 md:bg-transparent glass w-full sm:w-3/5 xl:w-2/5">
                 <div className="card-body flex justify-center">
-                    <h2 className="card-title">شهر خودت رو انتخاب کن :</h2>
+                    <h2 className="card-title text-color-dark">شهر خودت رو انتخاب کن :</h2>
                     <SearchInput
                         inputState={cityInputState}
                         handleChangeInput={handleChangeInput}

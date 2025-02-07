@@ -1,62 +1,43 @@
 "use client";
 
-import { format } from "date-fns-jalali";
 import Image from "next/image";
-import { useGetCurrentWeather } from "@/hooks/weatherHooks";
-import { ShowCurrentWeatherSkeleton, UpdateWeatherButton, WeatherView } from "@/components";
-import { City } from "@/context/AppContext";
+import { format } from "date-fns-jalali";
 
-interface ShowCurrentWeatherProps {
-    city: City;
-}
+import { UpdateWeatherButton, WeatherView } from "@/components";
+import { ShowCurrentWeatherProps } from "@/types";
+
 /**
- * ShowCurrentWeather component displays the current weather information for a given city.
+ * A component that displays the current weather data for the given city.
  *
- * Props:
- * - city: An object representing the city for which the weather needs to be displayed.
+ * @prop {Object} data - The current weather data returned from the API.
  *
- * Hooks:
- * - Utilizes the useGetCurrentWeather hook to fetch current weather data for the given city.
- *
- * Returns:
- * - If the weather data is loading, it displays a loading spinner (MiniLoading component).
- * - Otherwise, it displays a detailed view of the current weather including:
- *   - City name and description of the weather.
- *   - An update button to refresh the weather data.
- *   - Weather icon, date, time, sunrise, and sunset times.
- *   - Wind speed and direction, sea level, visibility, cloudiness, humidity, temperature, and feels-like temperature.
+ * @returns {JSX.Element} A JSX element representing the current weather data.
  *
  * Components:
- * - Utilizes WeatherView, UpdateWeatherButton, MiniLoading, and Image components for UI rendering.
+ * - Utilizes the WeatherView component to display the current weather data.
  *
  * Note:
  * - The weather data is fetched from an external API and is displayed in a user-friendly format.
  * - The component is styled using Tailwind CSS classes.
  */
-
-const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
-    const { currentWeatherData, isLoadingCurrentWeather } = useGetCurrentWeather(city);
-
-    if (isLoadingCurrentWeather) {
-        return <ShowCurrentWeatherSkeleton />;
-    }
+const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ data }) => {
 
     return (
         <WeatherView.Body className="pb-2">
             <WeatherView.Column className="md:col-span-4 space-y-0">
                 <div className="flex flex-row w-full justify-between items-center">
-                    <div className="stat-value text-slate-600 truncate">
-                        {currentWeatherData?.name}
+                    <div className="stat-value text-color-dark truncate">
+                        {data?.name}
                     </div>
                     <UpdateWeatherButton />
                 </div>
-                <WeatherView.HeadItem title={currentWeatherData?.weather[0]?.description}>
+                <WeatherView.HeadItem title={data?.weather[0]?.description}>
                     <Image
                         priority
-                        alt={currentWeatherData?.weather[0]?.description}
+                        alt={data?.weather[0]?.description}
                         width={100}
                         height={100}
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${currentWeatherData?.weather[0]?.icon}@2x.png`}
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${data?.weather[0]?.icon}@2x.png`}
                     />
                 </WeatherView.HeadItem>
 
@@ -73,12 +54,12 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                 <WeatherView.SubItem
                     className="text-time"
                     title="طلوع خورشید"
-                    value={format(new Date(currentWeatherData?.sys?.sunrise), "HH:mm")}
+                    value={format(new Date(data?.sys?.sunrise), "HH:mm")}
                 />
                 <WeatherView.SubItem
                     className="text-time"
                     title="غروب خورشید"
-                    value={format(new Date(currentWeatherData?.sys?.sunset), "HH:mm")}
+                    value={format(new Date(data?.sys?.sunset), "HH:mm")}
                 />
             </WeatherView.Column>
 
@@ -87,7 +68,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
             <WeatherView.Column className="md:col-span-3">
                 <WeatherView.HeadItem title="باد">
                     <svg
-                        className="text-slate-600"
+                        className="text-color-dark"
                         stroke="currentColor"
                         fill="currentColor"
                         strokeWidth="0"
@@ -103,20 +84,20 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                     className="text-[1.80rem]"
                     title="سرعت باد"
                     signRight="KM / H"
-                    value={currentWeatherData?.wind?.speed}
+                    value={data?.wind?.speed.toString()}
                 />
-                <WeatherView.SubItem title="درجه باد" value={currentWeatherData?.wind?.deg + "°"} />
+                <WeatherView.SubItem title="درجه باد" value={data?.wind?.deg + "°"} />
                 <WeatherView.SubItem
                     className="text-[1.75rem]"
                     title="ارتفاع از دریا"
                     signRight="M"
-                    value={currentWeatherData?.main?.sea_level}
+                    value={data?.main?.sea_level.toString()}
                 />
                 <WeatherView.SubItem
                     className="text-[1.75rem]"
                     title="عمق دید"
                     signRight="M"
-                    value={currentWeatherData?.visibility}
+                    value={data?.visibility.toString()}
                 />
             </WeatherView.Column>
 
@@ -125,7 +106,7 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
             <WeatherView.Column className="md:col-span-3">
                 <WeatherView.HeadItem title="آب و هوا">
                     <svg
-                        className="text-slate-600"
+                        className="text-color-dark"
                         stroke="currentColor"
                         fill="currentColor"
                         strokeWidth="0"
@@ -141,22 +122,22 @@ const ShowCurrentWeather: React.FC<ShowCurrentWeatherProps> = ({ city }) => {
                 <WeatherView.SubItem
                     title="احتمال بارش"
                     signRight="%"
-                    value={currentWeatherData?.clouds?.all}
+                    value={data?.clouds?.all.toString()}
                 />
                 <WeatherView.SubItem
                     title="رطوبت"
                     signRight="%"
-                    value={currentWeatherData?.main?.humidity}
+                    value={data?.main?.humidity.toString()}
                 />
                 <WeatherView.SubItem
                     title="دما"
                     signLeft="سانتیگراد"
-                    value={Math.floor(currentWeatherData?.main.temp) + "°"}
+                    value={Math.floor(data?.main.temp) + "°"}
                 />
                 <WeatherView.SubItem
                     title="دمای حسی"
                     signLeft="سانتیگراد"
-                    value={Math.floor(currentWeatherData?.main.feels_like) + "°"}
+                    value={Math.floor(data?.main.feels_like) + "°"}
                 />
             </WeatherView.Column>
         </WeatherView.Body>

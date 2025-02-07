@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { ForecastItem, SwiperButtons } from "@/components";
+import { ForecastItemListProps } from "@/types";
 
 const settings = {
     modules: [Navigation],
@@ -31,14 +32,19 @@ const settings = {
     },
 } satisfies SwiperProps;
 
-interface ForecastItemListProps {
-    forecastWeatherData: { list: Array<any> };
-}
+/**
+ * A component that renders a list of forecast weather data as a swiper.
+ *
+ * @prop {Object} forecastWeatherData - The forecast weather data returned from the API.
+ * @prop {Array} forecastWeatherData.list - The list of forecast weather data.
+ *
+ * @returns {JSX.Element} A JSX element representing a swiper of forecast weather data.
+ */
 const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData }) => {
     let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
         if (index % 8 === 0) {
             acc.push(
-                <SwiperSlide key={item?.dt_txt}>
+                <SwiperSlide className="py-2" key={item?.dt_txt}>
                     <ForecastItem forecastData={item} />
                 </SwiperSlide>
             );

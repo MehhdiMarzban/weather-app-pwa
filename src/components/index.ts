@@ -16,3 +16,5 @@ export { default as ForecastItemList } from "./ForecastItemList";
 export { default as SwiperButtons } from "./SwiperButtons";
 export { default as ShowCurrentWeatherSkeleton } from "./skeletons/ShowCurrentWeatherSkeleton";
 export { default as ShowForecastWeatherSkeleton } from "./skeletons/ShowForecastWeatherSkeleton";
+export { default as WeatherManagerSkeleton } from "./skeletons/WeatherManagerSkeleton";
+export { default as WeatherManager } from "./WeatherManager";
