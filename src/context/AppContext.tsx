@@ -47,7 +47,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     };
 
     const handleSetCurrentCity = (city: City) => {
-        const appLocalStorage = safeLocalStorage<AppContextType["currentCity"]>("currnetCity", defaultCity);
+        const appLocalStorage = safeLocalStorage<AppContextType["currentCity"]>("currentCity", defaultCity);
         appLocalStorage.set(city);
         setCurrentCity(city);
     };
