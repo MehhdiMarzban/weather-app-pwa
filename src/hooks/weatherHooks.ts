@@ -48,6 +48,7 @@ const handleWeatherQuery = async (
 export const useGetWeather = (city: City) => {
     //* this ref for prevent unexpected toast show
     const toastShowRef = useRef(false);
+    const toastSuccessIdRef = useRef<null | string>(null);
 
     const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
     const queries = useSuspenseQueries({
@@ -83,8 +84,11 @@ export const useGetWeather = (city: City) => {
     });
     useEffect(() => {
         if (queries.isAllSuccess && queries.isAllIdle && !toastShowRef.current) {
-            toast.dismiss();
-            toast.success("با موفقیت بروزرسانی شد !");
+            //* this line is for prevent unexpected toast show
+            if(toastSuccessIdRef.current) toast.dismiss(toastSuccessIdRef.current);
+            
+            //* show toast message and save the toast id for prevent unexpected toast show
+            toastSuccessIdRef.current = toast.success("با موفقیت بروزرسانی شد !");
             toastShowRef.current = true;
         }
     }, [queries.isAllIdle]);
