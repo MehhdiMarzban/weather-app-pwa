@@ -53,7 +53,7 @@ export const useGetWeather = (city: City) => {
     const queries = useSuspenseQueries({
         queries: [
             {
-                queryKey: ["weather", "current-weather", city?.name],
+                queryKey: ["weather", "current-weather", city.id, city.name],
                 queryFn: handleWeatherQuery.bind(null, {
                     city,
                     fetchFunction: getCurrentWeather,
@@ -62,7 +62,7 @@ export const useGetWeather = (city: City) => {
                 }),
             },
             {
-                queryKey: ["weather", "forecast-weather", city?.name],
+                queryKey: ["weather", "forecast-weather", city.id, city.name],
                 queryFn: handleWeatherQuery.bind(null, {
                     city,
                     fetchFunction: getForecastWeather,
