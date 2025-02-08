@@ -48,46 +48,53 @@ const handleWeatherQuery = async (
 export const useGetWeather = (city: City) => {
     //* this ref for prevent unexpected toast show
     const toastShowRef = useRef(false);
+    const toastSuccessIdRef = useRef<null | string>(null);
 
     const { handleSetCurrentCity, handleDeleteCity } = useAppContext();
-    const queries = useSuspenseQueries({
-        queries: [
-            {
-                queryKey: ["weather", "current-weather", city.id, city.name],
-                queryFn: handleWeatherQuery.bind(null, {
-                    city,
-                    fetchFunction: getCurrentWeather,
-                    onDelete: handleDeleteCity,
-                    onSetCurrent: handleSetCurrentCity,
+    const { currentWeatherData, forecastWeatherData, isAllIdle, isAllSuccess } = useSuspenseQueries(
+        {
+            queries: [
+                {
+                    queryKey: ["weather", "current-weather", city.id, city.name],
+                    queryFn: handleWeatherQuery.bind(null, {
+                        city,
+                        fetchFunction: getCurrentWeather,
+                        onDelete: handleDeleteCity,
+                        onSetCurrent: handleSetCurrentCity,
+                    }),
+                },
+                {
+                    queryKey: ["weather", "forecast-weather", city.id, city.name],
+                    queryFn: handleWeatherQuery.bind(null, {
+                        city,
+                        fetchFunction: getForecastWeather,
+                        onDelete: handleDeleteCity,
+                        onSetCurrent: handleSetCurrentCity,
+                    }),
+                },
+            ],
+            combine: (result) => ({
+                currentWeatherData: result[0].data as CurrentWeatherResponse,
+                forecastWeatherData: result[1].data as ForecastWeatherResponse,
+                isAllSuccess: result.every((query) => query.status === "success"),
+                isAllIdle: result.every((query) => {
+                    toastShowRef.current = false;
+                    return !query.isFetching;
                 }),
-            },
-            {
-                queryKey: ["weather", "forecast-weather", city.id, city.name],
-                queryFn: handleWeatherQuery.bind(null, {
-                    city,
-                    fetchFunction: getForecastWeather,
-                    onDelete: handleDeleteCity,
-                    onSetCurrent: handleSetCurrentCity,
-                }),
-            },
-        ],
-        combine: (result) => ({
-            currentWeatherData: result[0].data as CurrentWeatherResponse,
-            forecastWeatherData: result[1].data as ForecastWeatherResponse,
-            isAllSuccess: result.every((query) => query.status === "success"),
-            isAllIdle: result.every((query) => {
-                toastShowRef.current = false;
-                return !query.isFetching;
             }),
-        }),
-    });
+        }
+    );
     useEffect(() => {
-        if (queries.isAllSuccess && queries.isAllIdle && !toastShowRef.current) {
-            toast.dismiss();
-            toast.success("با موفقیت بروزرسانی شد !");
+        console.log("run");
+        if (isAllSuccess && isAllIdle && !toastShowRef.current) {
+            //* this line is for prevent unexpected toast show
+            if (toastSuccessIdRef.current) toast.dismiss(toastSuccessIdRef.current);
+
+            //* show toast message and save the toast id for prevent unexpected toast show
+            toastSuccessIdRef.current = toast.success("با موفقیت بروزرسانی شد !");
             toastShowRef.current = true;
         }
-    }, [queries.isAllIdle]);
+    }, [isAllIdle, currentWeatherData, forecastWeatherData]);
 
-    return queries;
+    return { currentWeatherData, forecastWeatherData };
 };
