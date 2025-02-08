@@ -42,12 +42,16 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     const handleDeleteCity = (id: City["id"]) => {
         const appLocalStorage = safeLocalStorage<City[]>("cities", []);
         const newCities = cities.filter((city) => city.id !== id);
+        queryClient.removeQueries({ predicate: (query) => query.queryKey[2] === id });
         setCities(newCities);
         appLocalStorage.set(newCities);
     };
 
     const handleSetCurrentCity = (city: City) => {
-        const appLocalStorage = safeLocalStorage<AppContextType["currentCity"]>("currentCity", defaultCity);
+        const appLocalStorage = safeLocalStorage<AppContextType["currentCity"]>(
+            "currentCity",
+            defaultCity
+        );
         appLocalStorage.set(city);
         setCurrentCity(city);
     };
@@ -58,7 +62,7 @@ const AppProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         queryClient.invalidateQueries({
-            queryKey: [currentCity?.name],
+            queryKey: ["weather"],
         });
     }, [currentCity]);
 
