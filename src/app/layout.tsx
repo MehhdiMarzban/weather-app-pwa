@@ -13,6 +13,7 @@ import ReactQueryProvider from "@/providers/ReactQueryProvider";
 export const metadata: Metadata = {
     title: "برنامه هواشناسی",
     description: "برنامه ای برای دیدن آب و هوای هرشهر",
+    themeColor: "#570DF8",
     manifest: "/manifest.json",
 };
 
