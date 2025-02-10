@@ -21,7 +21,10 @@ export default {
             },
         },
     },
-    plugins: [require("daisyui")],
+    plugins: [require("daisyui"), require("tailwind-scrollbar")({ nocompatible: true })],
+    variants: {
+        scrollbar: ["dark", "rounded", "width", 'corner-transparent'], // اضافه کردن واریانتهای مورد نیاز
+    },
     daisyui: {
         themes: [
             {
