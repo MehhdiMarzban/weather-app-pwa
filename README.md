@@ -11,7 +11,9 @@ This is a simple weather application built with Next.js and React Hooks. It allo
 ## Technologies Used
 
 - Next.js
-- React Hooks
+- React.js
+- DaisyUI
+- TailwindCSS
 - OpenWeatherMap API
 
 ## Getting Started
