@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<React.PropsWithChildren>) {
     return (
-        <html lang="fa-IR" dir="rtl">
+        <html lang="fa-IR" dir="rtl" className="scroll-smooth scrollbar scrollbar-w-2 scrollbar-thumb-primary scrollbar-track">
             <meta name="theme-color" content="#570DF8" />
             <body
                 className={`${AppFont.variable} font-sans min-h-screen bg-gray-200 md:bg-main-image md:bg-cover md:bg-center md:bg-fixed md:bg-no-repeat`}>
