@@ -85,7 +85,6 @@ export const useGetWeather = (city: City) => {
         }
     );
     useEffect(() => {
-        console.log("run");
         if (isAllSuccess && isAllIdle && !toastShowRef.current) {
             //* this line is for prevent unexpected toast show
             if (toastSuccessIdRef.current) toast.dismiss(toastSuccessIdRef.current);
