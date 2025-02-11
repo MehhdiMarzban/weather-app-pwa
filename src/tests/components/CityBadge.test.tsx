@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CityBadge from "@/components/CityBadge";
-import { City } from "@/context/AppContext";
+import { City } from "@/types";
 
 describe("CityBadge", () => {
     const city : City = {id: "1", name: "dorud"};
