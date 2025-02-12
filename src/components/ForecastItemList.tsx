@@ -44,7 +44,7 @@ const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData
     let forecastList = forecastWeatherData?.list.reduce<React.JSX.Element[]>((acc, item, index) => {
         if (index % 8 === 0) {
             acc.push(
-                <SwiperSlide className="py-2" key={item?.dt_txt}>
+                <SwiperSlide className="py-2" key={item?.dt_txt} data-testid="swiper-slide">
                     <ForecastItem forecastData={item} />
                 </SwiperSlide>
             );
@@ -54,7 +54,7 @@ const ForecastItemList: React.FC<ForecastItemListProps> = ({ forecastWeatherData
 
     return (
         <div className="relative">
-            <Swiper {...settings}>{forecastList}</Swiper>
+            <Swiper {...settings} data-testid="swiper">{forecastList}</Swiper>
             <SwiperButtons />
         </div>
     );
